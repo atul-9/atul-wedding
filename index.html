@@ -143,12 +143,12 @@
 .memory-empty h3{font:500 clamp(32px,4vw,43px)/1.05 var(--serif);color:var(--wine);margin:12px 0}
 .memory-empty p{max-width:520px;margin:0 auto;font:17px/1.7 var(--serif);color:#806b57}
 .memory-empty-rule{margin-top:22px;color:var(--gold);letter-spacing:.3em}
-.gallery-keepsake{max-width:920px;margin:70px auto 0;display:grid;grid-template-columns:.9fr 1.1fr;gap:35px;align-items:center;padding:22px;background:rgba(255,252,243,.55);border:1px solid rgba(164,122,54,.5)}
-.gallery-keepsake-art{padding:8px;background:linear-gradient(135deg,#9d783c,#e1c987,#8e642c);box-shadow:0 12px 28px rgba(69,35,23,.12)}
-.gallery-keepsake-art img{display:block;width:100%;max-height:340px;object-fit:cover;object-position:center 45%}
-.gallery-keepsake-copy{padding:18px 22px}
-.gallery-keepsake-copy h3{font:500 clamp(30px,4vw,42px)/1 var(--serif);color:var(--wine);margin:13px 0}
-.gallery-keepsake-copy p{font:17px/1.7 var(--serif);color:#806b57}
+
+
+
+
+
+
 .memory-viewer{position:fixed;inset:0;z-index:110;background:rgba(17,8,9,.94);display:none;align-items:center;justify-content:center;padding:35px}
 .memory-viewer.open{display:flex}
 .memory-viewer-panel{position:relative;display:flex;flex-direction:column;align-items:center;gap:13px;max-width:min(1100px,94vw);max-height:92vh;width:100%}
@@ -156,8 +156,8 @@
 .memory-viewer-content{display:flex;align-items:center;justify-content:center;width:100%;max-height:82vh}
 .memory-viewer-content img,.memory-viewer-content video,.memory-viewer-content iframe{display:block;max-width:100%;max-height:82vh;width:min(100%,1100px);height:min(75vh,760px);object-fit:contain;border:1px solid rgba(210,181,109,.65);box-shadow:0 20px 70px #0008;background:#100b0b}
 .memory-viewer-caption{color:#f4e8d1;font:italic 20px var(--serif);text-align:center;margin:0}
-@media(max-width:800px){.memory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.gallery-keepsake{grid-template-columns:1fr;gap:18px}.gallery-keepsake-art{max-width:440px;margin:auto}.gallery-keepsake-copy{text-align:center}}
-@media(max-width:520px){.memory-toolbar{justify-content:center}.memory-count{width:100%;text-align:center}.memory-filters{justify-content:center}.memory-filter{padding:10px 12px;font-size:8px}.memory-grid{gap:10px}.memory-card-meta{align-items:flex-start;flex-direction:column;gap:5px;padding:12px}.memory-card-title{font-size:18px}.memory-empty{padding:40px 20px}.gallery-keepsake{padding:14px;margin-top:48px}.gallery-keepsake-copy{padding:14px 8px}.memory-viewer{padding:18px}.memory-viewer-close{right:-6px;top:-12px}}
+@media(max-width:800px){.memory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}}
+@media(max-width:520px){.memory-toolbar{justify-content:center}.memory-count{width:100%;text-align:center}.memory-filters{justify-content:center}.memory-filter{padding:10px 12px;font-size:8px}.memory-grid{gap:10px}.memory-card-meta{align-items:flex-start;flex-direction:column;gap:5px;padding:12px}.memory-card-title{font-size:18px}.memory-empty{padding:40px 20px}.memory-viewer{padding:18px}.memory-viewer-close{right:-6px;top:-12px}}
 
 
 </style>
@@ -261,7 +261,7 @@
     <div class="day">
       <div class="day-date"><b>19</b><span>November · Thursday</span></div>
       <div class="day-events">
-        <article class="event event-trigger" role="button" tabindex="0" data-event="vinayak" aria-haspopup="dialog" aria-label="View Vinayak Sthapana and Haldi Hat details"><div class="event-top"><h3>Vinayak Sthapana &amp; Haldi Hat</h3><time>9:00 AM</time></div><p>An auspicious beginning with blessings and traditional rituals.</p><span class="tag">Private ceremony</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="vinayak" aria-haspopup="dialog" aria-label="View Vinayak Sthapana and Haldi Hath details"><div class="event-top"><h3>Vinayak Sthapana &amp; Haldi Hath</h3><time>9:00 AM</time></div><p>An auspicious beginning with blessings and traditional rituals.</p><span class="tag">Private ceremony</span></article>
       </div>
     </div>
     <div class="day">
@@ -337,14 +337,7 @@
    <div class="memory-empty-rule">❧ &nbsp; ❀ &nbsp; ❧</div>
   </div>
 
-  <div class="gallery-keepsake">
-   <div class="gallery-keepsake-art"><img src="assets/invitation-couple-art.jpg" alt="Original wedding artwork from Atul and Disha’s printed invitation" loading="lazy"></div>
-   <div class="gallery-keepsake-copy">
-    <div class="eyebrow">A keepsake from our invitation</div>
-    <h3>The celebration begins with a promise.</h3>
-    <p>The original artwork from our printed wedding invitation, now part of our digital celebration.</p>
-   </div>
-  </div>
+
  </div>
 </section>
 
@@ -460,7 +453,7 @@ if (rsvpForm) {
  updateMotion();
 
  const revealTargets=document.querySelectorAll(
-   '.section-head,.story-panel,.family-grid,.family-monogram,.day,.venue-grid,.memory-toolbar,.memory-grid,.memory-empty,.gallery-keepsake,.kwikpic-card,.rsvp-box,.footer-logo,.footer-names'
+   '.section-head,.story-panel,.family-grid,.family-monogram,.day,.venue-grid,.memory-toolbar,.memory-grid,.memory-empty,.kwikpic-card,.rsvp-box,.footer-logo,.footer-names'
  );
  revealTargets.forEach((el,i)=>{
    el.classList.add('v2-reveal');
@@ -514,9 +507,9 @@ if (rsvpForm) {
 (() => {
  const eventInfo = {
   vinayak: {
-   title: 'Vinayak Sthapana & Haldi Hat',
+   title: 'Vinayak Sthapana & Haldi Hath',
    meta: 'Thursday · 19 November · 9:00 AM',
-   description: 'We begin the wedding festivities by seeking Lord Ganesha’s blessings, followed by the warmth and cheer of the Haldi Hat gathering. It is an auspicious, family-centred start to the celebrations.',
+   description: 'We begin the wedding festivities by seeking Lord Ganesha’s blessings, followed by the warmth and cheer of the Haldi Hath gathering. It is an auspicious, family-centred start to the celebrations.',
    men: 'A comfortable traditional kurta-pyjama in yellow, cream or other warm festive tones. Keep the look light and easy for a morning ceremony.',
    women: 'A bright yellow or turmeric-toned suit, saree or light lehenga with comfortable footwear and minimal floral or traditional accessories.',
    source: 'Suggested attire · Not specified in the wardrobe planner'
