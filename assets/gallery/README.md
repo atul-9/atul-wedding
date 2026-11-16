@@ -1,24 +1,20 @@
-# Wedding Gallery Media
+# Atul & Disha — Wedding Gallery Folder
 
-This folder is reserved for Atul and Disha's real photographs and video files.
+The website automatically reads supported media files placed directly inside `assets/gallery/`.
 
-## Add photographs
-1. Upload optimized image files to this folder (WebP or JPG recommended).
-2. Add an entry to the `GALLERY_ITEMS` array in the gallery script in `index.html`:
+## Supported formats
+- Photos: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`
+- Videos: `.mp4`, `.webm`
 
-```js
-{ type: 'photo', src: 'assets/gallery/photo-name.webp', title: 'A short caption', alt: 'A brief description' }
-```
+Upload files directly into this folder in the GitHub repository. The file name becomes the caption, so use clear names such as `Atul-and-Disha-pre-wedding-01.webp`. Files appear in filename order. The README itself and other unsupported files are ignored.
 
-## Add videos
-For a small, web-ready MP4 file, upload it here and add:
+## Automatic updates
+The gallery reads the public GitHub folder when a visitor opens the page and checks for changes about every five minutes while the page remains open. Adding a supported image/video makes it appear automatically; deleting one removes it from the gallery. No JavaScript list, manifest, build step, or website code edit is required. Visitors can also use **Refresh gallery** to check immediately.
 
-```js
-{ type: 'video', src: 'assets/gallery/film-name.mp4', poster: 'assets/gallery/film-cover.webp', title: 'A short caption' }
-```
+## Browsing
+Photos and videos open inside the website in a full-screen viewer. Visitors can use Previous/Next, the left/right keyboard arrows, or swipe on touch devices. Closing the viewer returns to the gallery without navigating to another page.
 
-Use a compressed MP4 and a separate poster image. Avoid committing original high-resolution video masters to the repository; large video files increase repository size and page loading time. For longer or high-resolution films, use a video hosting service and adapt the player to that host.
+## Media guidance and privacy
+Use optimized WebP/JPEG images and MP4 (H.264) or WebM video. Keep individual video files reasonably small; long or high-resolution originals are better hosted on a dedicated video service.
 
-Only add photographs and videos supplied or approved by the couple. Do not use stock or generated couple imagery.
-
-**Visibility:** This website is public. Any media placed in this folder and linked from the gallery will be publicly accessible. Do not upload private or sensitive photographs.
+The website and this repository are public. Every supported image or video placed here is publicly accessible. Upload only media that Atul and Disha are comfortable sharing publicly; keep private or sensitive images elsewhere.

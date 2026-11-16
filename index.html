@@ -116,6 +116,10 @@
 .memory-filter:hover,.memory-filter.is-active{background:var(--wine);color:#fff7e7;border-color:var(--wine)}
 .memory-filter:focus-visible,.memory-card:focus-visible,.memory-viewer-close:focus-visible{outline:2px solid var(--wine2);outline-offset:4px}
 .memory-count{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8b765f;margin:0}
+.memory-toolbar-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.memory-refresh{border:0;border-bottom:1px solid rgba(164,122,54,.6);background:transparent;color:#80643d;padding:7px 0;font:700 9px var(--sans);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.memory-refresh:hover{color:var(--wine)}
+.memory-refresh:disabled{opacity:.55;cursor:wait}
 .memory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1040px;margin:0 auto}
 .memory-card{display:block;position:relative;width:100%;min-width:0;padding:0;text-align:left;border:1px solid rgba(164,122,54,.48);background:#fbf7eb;color:var(--ink);cursor:pointer;overflow:hidden;box-shadow:0 10px 28px rgba(69,35,23,.07);transition:transform .4s,box-shadow .4s,border-color .4s}
 .memory-card:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(69,35,23,.14);border-color:var(--gold)}
@@ -123,6 +127,12 @@
 .memory-card-media img,.memory-card-media video{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s}
 .memory-card:hover .memory-card-media img,.memory-card:hover .memory-card-media video{transform:scale(1.04)}
 .memory-card-media.video{aspect-ratio:4/5}
+.memory-viewer-nav{display:flex;align-items:center;justify-content:center;gap:18px;width:100%}
+.memory-viewer-nav button{min-width:112px;border:1px solid rgba(210,181,109,.65);background:rgba(244,237,218,.1);color:#f4e8d1;padding:11px 16px;font:700 9px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.memory-viewer-nav button:hover:not(:disabled){background:var(--paper2);color:var(--wine)}
+.memory-viewer-nav button:disabled{opacity:.28;cursor:not-allowed}
+.memory-viewer-position{color:#ddc9a7;font:11px var(--sans);letter-spacing:.12em;min-width:58px;text-align:center}
+@media(max-width:520px){.memory-toolbar-actions{justify-content:center}.memory-viewer-nav{gap:9px}.memory-viewer-nav button{min-width:88px;padding:10px 12px;font-size:8px}}
 .memory-video-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:rgba(100,30,38,.9);border:1px solid #dfc77f;color:#fff6e3;font-size:17px;padding-left:3px;box-shadow:0 7px 20px #2d10134a}
 .memory-card-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px 17px}
 .memory-card-title{font:600 20px/1.15 var(--serif);color:var(--wine)}
@@ -305,7 +315,10 @@
     <button class="memory-filter" type="button" data-gallery-filter="photo" aria-pressed="false">Photographs</button>
     <button class="memory-filter" type="button" data-gallery-filter="video" aria-pressed="false">Videos</button>
    </div>
-   <p class="memory-count" id="memoryCount" aria-live="polite">Our gallery is being prepared</p>
+   <div class="memory-toolbar-actions">
+    <p class="memory-count" id="memoryCount" aria-live="polite">Loading your moments…</p>
+    <button class="memory-refresh" id="memoryRefresh" type="button">↻ Refresh gallery</button>
+   </div>
   </div>
 
   <div class="memory-grid" id="memoryGrid" aria-label="Wedding photographs and videos" hidden></div>
@@ -585,56 +598,161 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
 
 <script>
 (() => {
-  // Add real media files to assets/gallery/ and list them here.
-  // Photos: { type: 'photo', src: 'assets/gallery/photo-name.webp', title: 'A short caption' }
-  // Videos: { type: 'video', src: 'assets/gallery/film-name.mp4', poster: 'assets/gallery/film-cover.webp', title: 'A short caption' }
-  const GALLERY_ITEMS = [
-    // Your uploaded photographs and films will be added here.
-  ];
+  // The public GitHub folder is the gallery source of truth.
+  // Files added or removed in assets/gallery/ are picked up automatically.
+  const GALLERY_API = 'https://api.github.com/repos/atul-9/atul-wedding/contents/assets/gallery?ref=main';
+  const IMAGE_EXTENSIONS = new Set(['jpg','jpeg','png','webp','gif','avif']);
+  const VIDEO_EXTENSIONS = new Set(['mp4','webm']);
+  const REFRESH_INTERVAL = 5 * 60 * 1000;
 
   const grid = document.getElementById('memoryGrid');
   const empty = document.getElementById('memoryEmpty');
   const count = document.getElementById('memoryCount');
+  const refreshButton = document.getElementById('memoryRefresh');
   const filters = [...document.querySelectorAll('[data-gallery-filter]')];
   const viewer = document.getElementById('memoryViewer');
   const viewerContent = document.getElementById('memoryViewerContent');
   const viewerCaption = document.getElementById('memoryViewerCaption');
+  const viewerPosition = document.getElementById('memoryViewerPosition');
+  const previousButton = document.getElementById('memoryPrevious');
+  const nextButton = document.getElementById('memoryNext');
   const closeViewerButton = document.getElementById('memoryViewerClose');
+
+  let galleryItems = [];
+  let displayedItems = [];
   let activeFilter = 'all';
+  let viewerIndex = -1;
   let lastFocused = null;
+  let refreshTimer;
+  let touchStartX = 0;
+  let isLoading = false;
 
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[ch]));
 
-  function visibleItems() {
-    return GALLERY_ITEMS.map((item, index) => ({...item, originalIndex:index}))
-      .filter(item => activeFilter === 'all' || item.type === activeFilter);
+  function titleFromFilename(name) {
+    return name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
   function renderGallery() {
-    const items = visibleItems();
-    grid.innerHTML = items.map(item => {
-      const title = escapeHTML(item.title || (item.type === 'video' ? 'Wedding film' : 'A favourite moment'));
-      const src = escapeHTML(item.src || '');
-      const poster = escapeHTML(item.poster || '');
+    displayedItems = galleryItems.filter(item => activeFilter === 'all' || item.type === activeFilter);
+    grid.innerHTML = displayedItems.map((item, index) => {
+      const title = escapeHTML(item.title);
+      const src = escapeHTML(item.src);
       const media = item.type === 'video'
-        ? (poster
-          ? '<img src="' + poster + '" alt="" loading="lazy">'
-          : '<span class="memory-video-mark" aria-hidden="true">▶</span>')
-        : '<img src="' + src + '" alt="' + escapeHTML(item.alt || item.title || 'Atul and Disha') + '" loading="lazy">';
-      return '<button class="memory-card" type="button" data-gallery-index="' + item.originalIndex + '" aria-label="Open ' + title + '">' +
-        '<span class="memory-card-media ' + (item.type === 'video' ? 'video' : '') + '">' + media +
-        (item.type === 'video' ? '<span class="memory-video-mark" aria-hidden="true">▶</span>' : '') + '</span>' +
+        ? '<video muted playsinline preload="metadata" aria-hidden="true"><source src="' + src + '"></video><span class="memory-video-mark" aria-hidden="true">▶</span>'
+        : '<img src="' + src + '" alt="' + title + '" loading="lazy">';
+      return '<button class="memory-card" type="button" data-gallery-index="' + index + '" aria-label="Open ' + title + '">' +
+        '<span class="memory-card-media ' + (item.type === 'video' ? 'video' : '') + '">' + media + '</span>' +
         '<span class="memory-card-meta"><span class="memory-card-title">' + title + '</span>' +
         '<span class="memory-card-kind">' + (item.type === 'video' ? 'Film' : 'Photograph') + '</span></span></button>';
     }).join('');
 
-    grid.hidden = items.length === 0;
-    empty.hidden = items.length !== 0;
-    count.textContent = items.length
-      ? items.length + (activeFilter === 'video' ? ' film(s)' : activeFilter === 'photo' ? ' photograph(s)' : ' moment(s)')
-      : (activeFilter === 'video' ? 'Films will appear here' : activeFilter === 'photo' ? 'Photographs will appear here' : 'Our gallery is being prepared');
+    grid.hidden = displayedItems.length === 0;
+    empty.hidden = displayedItems.length !== 0;
+    count.textContent = displayedItems.length
+      ? displayedItems.length + (activeFilter === 'video' ? ' film(s)' : activeFilter === 'photo' ? ' photograph(s)' : ' moment(s)')
+      : (activeFilter === 'video' ? 'No videos in the folder yet' : activeFilter === 'photo' ? 'No photographs in the folder yet' : 'No photos or videos found yet');
+  }
+
+  function setViewerItem() {
+    const item = displayedItems[viewerIndex];
+    if (!item) return;
+    const src = escapeHTML(item.src);
+    if (item.type === 'video') {
+      const mime = item.extension === 'webm' ? 'video/webm' : 'video/mp4';
+      viewerContent.innerHTML = '<video controls playsinline preload="metadata"><source src="' + src + '" type="' + mime + '">Your browser does not support this video.</video>';
+    } else {
+      viewerContent.innerHTML = '<img src="' + src + '" alt="' + escapeHTML(item.title) + '">';
+    }
+    viewerCaption.textContent = item.title;
+    viewerPosition.textContent = (viewerIndex + 1) + ' / ' + displayedItems.length;
+    previousButton.disabled = viewerIndex <= 0;
+    nextButton.disabled = viewerIndex >= displayedItems.length - 1;
+  }
+
+  function openViewer(index, trigger) {
+    if (!displayedItems[index]) return;
+    viewerIndex = index;
+    lastFocused = trigger || document.activeElement;
+    setViewerItem();
+    viewer.classList.add('open');
+    viewer.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    closeViewerButton.focus();
+  }
+
+  function navigateViewer(direction) {
+    const nextIndex = viewerIndex + direction;
+    if (nextIndex < 0 || nextIndex >= displayedItems.length) return;
+    viewerIndex = nextIndex;
+    setViewerItem();
+  }
+
+  function closeViewer() {
+    viewer.classList.remove('open');
+    viewer.setAttribute('aria-hidden','true');
+    viewerContent.innerHTML = '';
+    viewerIndex = -1;
+    document.body.style.overflow = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  async function loadGallery({silent=false} = {}) {
+    if (isLoading) return;
+    isLoading = true;
+    refreshButton.disabled = true;
+    if (!silent && galleryItems.length === 0) count.textContent = 'Loading your moments…';
+    try {
+      const response = await fetch(GALLERY_API, {
+        headers: { 'Accept': 'application/vnd.github+json' },
+        cache: 'no-store'
+      });
+      if (!response.ok) {
+        if (response.status === 404) throw new Error('The gallery folder was not found.');
+        if (response.status === 403) throw new Error('Gallery refresh limit reached. Please try again later.');
+        throw new Error('The gallery could not be loaded right now.');
+      }
+      const files = await response.json();
+      if (!Array.isArray(files)) throw new Error('The gallery folder response was not valid.');
+
+      const nextItems = files
+        .filter(file => file.type === 'file' && file.download_url && file.size > 0)
+        .map(file => {
+          const extension = file.name.split('.').pop().toLowerCase();
+          const src = file.download_url + '?v=' + file.sha;
+          if (IMAGE_EXTENSIONS.has(extension)) return {type:'photo',extension,path:file.path,src,title:titleFromFilename(file.name)};
+          if (VIDEO_EXTENSIONS.has(extension)) return {type:'video',extension,path:file.path,src,title:titleFromFilename(file.name)};
+          return null;
+        })
+        .filter(Boolean)
+        .sort((a,b) => a.path.localeCompare(b.path, undefined, {numeric:true,sensitivity:'base'}));
+
+      const openPath = viewer.classList.contains('open') && displayedItems[viewerIndex] ? displayedItems[viewerIndex].path : null;
+      galleryItems = nextItems;
+      renderGallery();
+
+      if (openPath) {
+        const updatedIndex = displayedItems.findIndex(item => item.path === openPath);
+        if (updatedIndex >= 0) {
+          viewerIndex = updatedIndex;
+          setViewerItem();
+        } else {
+          closeViewer();
+        }
+      }
+    } catch (error) {
+      if (galleryItems.length === 0) {
+        count.textContent = error.message || 'Gallery temporarily unavailable';
+        empty.hidden = false;
+      } else if (!silent) {
+        count.textContent = 'Could not refresh · showing last loaded gallery';
+      }
+    } finally {
+      isLoading = false;
+      refreshButton.disabled = false;
+    }
   }
 
   filters.forEach(button => button.addEventListener('click', () => {
@@ -647,51 +765,45 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
     renderGallery();
   }));
 
-  function openViewer(item, trigger) {
-    if (!item || !item.src) return;
-    lastFocused = trigger || document.activeElement;
-    const src = escapeHTML(item.src);
-    const poster = escapeHTML(item.poster || '');
-    if (item.type === 'video') {
-      viewerContent.innerHTML = '<video controls playsinline preload="metadata" ' + (poster ? 'poster="' + poster + '"' : '') + '><source src="' + src + '"></video>';
-    } else {
-      viewerContent.innerHTML = '<img src="' + src + '" alt="' + escapeHTML(item.alt || item.title || 'Atul and Disha') + '">';
-    }
-    viewerCaption.textContent = item.title || '';
-    viewer.classList.add('open');
-    viewer.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-    closeViewerButton.focus();
-  }
-
-  function closeViewer() {
-    viewer.classList.remove('open');
-    viewer.setAttribute('aria-hidden','true');
-    viewerContent.innerHTML = '';
-    document.body.style.overflow = '';
-    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-  }
-
   grid.addEventListener('click', event => {
     const button = event.target.closest('[data-gallery-index]');
-    if (!button) return;
-    const item = GALLERY_ITEMS[Number(button.dataset.galleryIndex)];
-    openViewer(item, button);
+    if (button) openViewer(Number(button.dataset.galleryIndex), button);
   });
+  previousButton.addEventListener('click', () => navigateViewer(-1));
+  nextButton.addEventListener('click', () => navigateViewer(1));
   closeViewerButton.addEventListener('click', closeViewer);
+  refreshButton.addEventListener('click', () => loadGallery());
   viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
+  viewerContent.addEventListener('touchstart', event => {
+    touchStartX = event.changedTouches[0].screenX;
+  }, {passive:true});
+  viewerContent.addEventListener('touchend', event => {
+    const delta = event.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(delta) > 55) navigateViewer(delta < 0 ? 1 : -1);
+  }, {passive:true});
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && viewer.classList.contains('open')) closeViewer();
+    if (!viewer.classList.contains('open')) return;
+    if (event.key === 'Escape') closeViewer();
+    else if (event.key === 'ArrowLeft') navigateViewer(-1);
+    else if (event.key === 'ArrowRight') navigateViewer(1);
   });
 
-  renderGallery();
+  loadGallery();
+  refreshTimer = window.setInterval(() => loadGallery({silent:true}), REFRESH_INTERVAL);
+  window.addEventListener('beforeunload', () => window.clearInterval(refreshTimer));
 })();
 </script>
+
 <div class="memory-viewer" id="memoryViewer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Gallery media viewer">
  <div class="memory-viewer-panel">
   <button class="memory-viewer-close" id="memoryViewerClose" type="button" aria-label="Close gallery viewer">×</button>
   <div class="memory-viewer-content" id="memoryViewerContent"></div>
   <p class="memory-viewer-caption" id="memoryViewerCaption"></p>
+  <div class="memory-viewer-nav" aria-label="Browse gallery">
+   <button id="memoryPrevious" type="button" disabled>← Previous</button>
+   <span class="memory-viewer-position" id="memoryViewerPosition">0 / 0</span>
+   <button id="memoryNext" type="button" disabled>Next →</button>
+  </div>
  </div>
 </div>
 
