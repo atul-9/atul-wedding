@@ -71,6 +71,23 @@
 @media(max-width:900px){.kwikpic-card{grid-template-columns:1fr;gap:24px}.kwikpic-qr{max-width:290px}.kwikpic-copy{text-align:center}}
 @media(max-width:700px){.brand img{width:47px;height:44px}.kwikpic-card{padding:18px}.kwikpic-copy h3{font-size:33px}}
 
+
+/* Clickable event cards and event detail panel */
+.event-trigger{cursor:pointer;padding-bottom:37px;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
+.event-trigger:after{content:"VIEW DETAILS + DRESS CODE  ↗";position:absolute;right:18px;bottom:12px;color:var(--gold);font:700 8px var(--sans);letter-spacing:.14em}
+.event-trigger:focus-visible{outline:2px solid var(--wine2);outline-offset:4px}
+.event-trigger:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(58,23,25,.1);border-color:var(--gold)}
+.event-backdrop{z-index:90}
+.event-detail-modal{max-width:720px;width:100%;max-height:min(88vh,820px);overflow-y:auto;position:relative;background:var(--paper2);border:1px solid var(--gold);padding:clamp(26px,5vw,48px);box-shadow:0 28px 80px #10070766}
+.event-detail-modal h2{font:500 clamp(38px,6vw,58px)/.98 var(--serif);color:var(--wine);margin:12px 34px 14px 0}
+.event-detail-description{font:18px/1.75 var(--serif);color:#76634f;margin:0 0 25px}
+.event-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.event-detail-grid section{background:#f1e8d4;border:1px solid rgba(164,122,54,.35);padding:18px}
+.event-detail-grid p{font:16px/1.65 var(--serif);color:#5b4435;margin:10px 0 0}
+.event-dress-source{font:11px/1.6 var(--sans);color:#89765e;border-top:1px solid var(--line);padding-top:16px;margin:20px 0 0}
+.event-detail-foot{text-align:center;font:italic 18px var(--serif);color:var(--wine);margin:22px 0 0}
+@media(max-width:600px){.event-detail-grid{grid-template-columns:1fr}.event-detail-modal{padding:26px 20px}.event-trigger:after{font-size:7px;letter-spacing:.1em}}
+
 </style>
 </head>
 <body>
@@ -126,34 +143,34 @@
 
 <section class="schedule section" id="schedule">
  <div class="section-inner">
-  <div class="section-head"><div class="eyebrow">Mark your calendar</div><div class="orn">✧ ❀ ✧</div><h2>The Wedding Festivities</h2><p>Five days of rituals, family, laughter and togetherness.</p></div>
+  <div class="section-head"><div class="eyebrow">Mark your calendar</div><div class="orn">✧ ❀ ✧</div><h2>The Wedding Festivities</h2><p>A week of rituals, family, laughter and togetherness.</p></div>
   <div class="timeline">
     <div class="day">
       <div class="day-date"><b>19</b><span>November · Thursday</span></div>
       <div class="day-events">
-        <article class="event"><div class="event-top"><h3>Vinayak Sthapana &amp; Haldi Ras</h3><time>9:00 AM</time></div><p>An auspicious beginning with blessings and traditional rituals.</p><span class="tag">Private ceremony</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="vinayak" aria-haspopup="dialog" aria-label="View Vinayak Sthapana and Haldi Hat details"><div class="event-top"><h3>Vinayak Sthapana &amp; Haldi Hat</h3><time>9:00 AM</time></div><p>An auspicious beginning with blessings and traditional rituals.</p><span class="tag">Private ceremony</span></article>
       </div>
     </div>
     <div class="day">
       <div class="day-date"><b>23</b><span>November · Monday</span></div>
       <div class="day-events">
-        <article class="event"><div class="event-top"><h3>Tel</h3><time>1:00 PM</time></div><p>A family ritual at the private residence.</p><span class="tag">Private residence</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="tel" aria-haspopup="dialog" aria-label="View Tel ceremony details"><div class="event-top"><h3>Tel</h3><time>1:00 PM</time></div><p>A family ritual at the private residence.</p><span class="tag">Private residence</span></article>
       </div>
     </div>
     <div class="day">
       <div class="day-date"><b>24</b><span>November · Tuesday</span></div>
       <div class="day-events">
-        <article class="event"><div class="event-top"><h3>Basan</h3><time>9:00 AM</time></div><p>Traditional family ceremony.</p><span class="tag">Private residence</span></article>
-        <article class="event"><div class="event-top"><h3>Haldi Balika</h3><time>1:00 PM</time></div><p>A joyful afternoon of colour and celebration.</p><span class="tag">Maharani Resort</span></article>
-        <article class="event"><div class="event-top"><h3>Nikasi</h3><time>7:30 PM</time></div><p>Evening preparations and family celebrations.</p><span class="tag">Private residence</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="basan" aria-haspopup="dialog" aria-label="View Basan ceremony details"><div class="event-top"><h3>Basan</h3><time>9:00 AM</time></div><p>Traditional family ceremony.</p><span class="tag">Private residence</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="carnival" aria-haspopup="dialog" aria-label="View Carnival details"><div class="event-top"><h3>Carnival</h3><time>1:00 PM</time></div><p>A joyful afternoon of colour and celebration.</p><span class="tag">Maharani Resort</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="nikasi" aria-haspopup="dialog" aria-label="View Atul ki Nikasi details"><div class="event-top"><h3>Atul ki Nikasi</h3><time>7:30 PM</time></div><p>Evening preparations and family celebrations.</p><span class="tag">Private residence</span></article>
       </div>
     </div>
     <div class="day">
       <div class="day-date"><b>25</b><span>November · Wednesday</span></div>
       <div class="day-events">
-        <article class="event"><div class="event-top"><h3>Barat</h3><time>10:00 AM</time></div><p>The wedding procession sets off for the celebration.</p><span class="tag">Departure as mentioned in invitation</span></article>
-        <article class="event"><div class="event-top"><h3>Panigrahan Sanskar</h3><time>1:00 PM</time></div><p>The sacred wedding ceremony and the beginning of our forever.</p><span class="tag">Maharani Resort</span></article>
-        <article class="event"><div class="event-top"><h3>Aashirwad Samaroh &amp; Preetibhoj</h3><time>5:00 PM onwards</time></div><p>Join us for blessings, a warm welcome and a celebratory feast.</p><span class="tag">All are warmly invited</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="barat" aria-haspopup="dialog" aria-label="View Atul ki Barat details"><div class="event-top"><h3>Atul ki Barat</h3><time>10:00 AM</time></div><p>The wedding procession sets off for the celebration.</p><span class="tag">Departure as mentioned in invitation</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="phere" aria-haspopup="dialog" aria-label="View Phere and Promises details"><div class="event-top"><h3>Phere &amp; Promises</h3><time>1:00 PM</time></div><p>The sacred wedding ceremony and the beginning of our forever.</p><span class="tag">Maharani Resort</span></article>
+        <article class="event event-trigger" role="button" tabindex="0" data-event="soiree" aria-haspopup="dialog" aria-label="View Blessing Soirée details"><div class="event-top"><h3>Blessing Soirée</h3><time>5:00 PM onwards</time></div><p>Join us for blessings, a warm welcome and a celebratory feast.</p><span class="tag">All are warmly invited</span></article>
       </div>
     </div>
   </div>
@@ -314,4 +331,132 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
 })();
 
 </script>
+
+<div class="modal-backdrop event-backdrop" id="eventDetailsModal" role="dialog" aria-modal="true" aria-labelledby="eventDetailsTitle" aria-hidden="true">
+ <div class="event-detail-modal">
+  <button class="close" id="closeEventDetails" aria-label="Close event details">×</button>
+  <div class="eyebrow" id="eventDetailsMeta">Wedding celebration</div>
+  <h2 id="eventDetailsTitle">Function</h2>
+  <p class="event-detail-description" id="eventDetailsDescription"></p>
+  <div class="event-detail-grid">
+   <section><div class="eyebrow">For men</div><p id="eventDressMen"></p></section>
+   <section><div class="eyebrow">For women</div><p id="eventDressWomen"></p></section>
+  </div>
+  <p class="event-dress-source" id="eventDressSource"></p>
+  <p class="event-detail-foot">We look forward to celebrating with you. ✧</p>
+ </div>
+</div>
+
+
+<script>
+(() => {
+ const eventInfo = {
+  vinayak: {
+   title: 'Vinayak Sthapana & Haldi Hat',
+   meta: 'Thursday · 19 November · 9:00 AM',
+   description: 'We begin the wedding festivities by seeking Lord Ganesha’s blessings, followed by the warmth and cheer of the Haldi Hat gathering. It is an auspicious, family-centred start to the celebrations.',
+   men: 'A comfortable traditional kurta-pyjama in yellow, cream or other warm festive tones. Keep the look light and easy for a morning ceremony.',
+   women: 'A bright yellow or turmeric-toned suit, saree or light lehenga with comfortable footwear and minimal floral or traditional accessories.',
+   source: 'Suggested dress code: the wardrobe planner does not list this 19 November function. Yellow and warm festive tones are recommendations for the Haldi setting.'
+  },
+  tel: {
+   title: 'Tel',
+   meta: 'Monday · 23 November · 1:00 PM',
+   description: 'A traditional pre-wedding family ritual and an intimate moment in the celebrations. Guests are invited to join the family for this daytime gathering at the private residence.',
+   men: 'A neat kurta-pyjama or simple Indian festive outfit in soft, daytime colours. Choose something comfortable for a family ceremony.',
+   women: 'A graceful salwar suit, light saree or simple traditional outfit. Soft colours and understated jewellery work well for the daytime setting.',
+   source: 'Suggested dress code: the wardrobe planner does not specify a Tel outfit. These are simple daytime recommendations.'
+  },
+  basan: {
+   title: 'Basan',
+   meta: 'Tuesday · 24 November · 9:00 AM',
+   description: 'A morning family ceremony as the wedding celebrations gather momentum. Join us for a traditional start to the day and time together with loved ones.',
+   men: 'A Bandhej/Bandej-print kurta or a solid kurta paired with a Bandhej stole or safa. Keep the styling traditional and festive.',
+   women: 'A Bandhej/Bandej saree, lehenga or suit, styled with traditional jewellery and comfortable footwear.',
+   source: 'Wardrobe planner: “Bandej” for the morning of 24 November.'
+  },
+  carnival: {
+   title: 'Carnival',
+   meta: 'Tuesday · 24 November · 1:00 PM',
+   description: 'An afternoon filled with colour, cheerful company and a lively carnival mood. Come ready to enjoy the festivities and make memories with the family.',
+   men: 'A pastel kurta with white or ivory trousers, or a light Indo-western set. Mint, powder blue, blush, lilac and soft peach complement the theme.',
+   women: 'A pastel lehenga, sharara, saree or suit in blush pink, lavender, powder blue, mint or peach. Keep the look playful and light.',
+   source: 'Wardrobe planner: pastel shades for the Carnival on the afternoon of 24 November.'
+  },
+  nikasi: {
+   title: 'Atul ki Nikasi',
+   meta: 'Tuesday · 24 November · 7:30 PM',
+   description: 'The evening celebration for Atul’s Nikasi, bringing family and friends together as the groom prepares for the wedding day. Expect a festive night with traditional spirit.',
+   men: 'An Indo-western bandhgala, an embellished kurta with a jacket, or a traditional festive ensemble. A stole or safa can complete the look.',
+   women: 'A traditional lehenga, saree or sharara, or a dressy Indo-western outfit. Rich jewel tones and festive accessories suit the evening.',
+   source: 'Wardrobe planner: “Indo-western / Traditional” for the night of 24 November.'
+  },
+  barat: {
+   title: 'Atul ki Barat',
+   meta: 'Wednesday · 25 November · 10:00 AM',
+   description: 'Join the wedding procession as Atul sets out for the big celebration. Bring your energy, smiles and blessings as the wedding day begins in full swing.',
+   men: 'Traditional Indian attire such as a sherwani, achkan or kurta with a waistcoat. A safa or stole can finish the celebratory look.',
+   women: 'A festive saree, lehenga or traditional suit with occasion jewellery. Choose an outfit that is elegant and comfortable for the procession.',
+   source: 'Wardrobe planner: “Traditional” for the morning Barat on 25 November.'
+  },
+  phere: {
+   title: 'Phere & Promises',
+   meta: 'Wednesday · 25 November · 1:00 PM',
+   description: 'The heart of the wedding day: the sacred pheras and the promises that mark the beginning of Atul and Disha’s married life. We would be honoured to have your blessings for this special ceremony.',
+   men: 'Indian formalwear such as a refined kurta with a structured jacket, an achkan or a classic bandhgala in elegant, understated colours.',
+   women: 'Indian formals such as a silk saree, elegant lehenga or a refined festive suit, paired with graceful traditional jewellery.',
+   source: 'Wardrobe planner: “Indian Formals” for the afternoon Phere on 25 November.'
+  },
+  soiree: {
+   title: 'Blessing Soirée',
+   meta: 'Wednesday · 25 November · 5:00 PM onwards',
+   description: 'An evening to receive your blessings, celebrate together and share a joyful meal. We look forward to welcoming you for the Aashirwad Samaroh and Preetibhoj.',
+   men: 'Formal and glamorous: a sharp suit, tuxedo-inspired look or an elegant bandhgala. Polished shoes and refined accessories complete the evening style.',
+   women: 'Formal and glamorous: an evening gown, statement saree or occasion lehenga with elevated jewellery and evening-ready styling.',
+   source: 'Wardrobe planner: “Formal & Glamorous” for the night Reception on 25 November.'
+  }
+ };
+ const backdrop=document.getElementById('eventDetailsModal');
+ const closeButton=document.getElementById('closeEventDetails');
+ const fields={
+  title:document.getElementById('eventDetailsTitle'),
+  meta:document.getElementById('eventDetailsMeta'),
+  description:document.getElementById('eventDetailsDescription'),
+  men:document.getElementById('eventDressMen'),
+  women:document.getElementById('eventDressWomen'),
+  source:document.getElementById('eventDressSource')
+ };
+ let lastFocused=null;
+ function openDetails(key,trigger){
+  const item=eventInfo[key]; if(!item)return;
+  lastFocused=trigger||document.activeElement;
+  fields.title.textContent=item.title;
+  fields.meta.textContent=item.meta;
+  fields.description.textContent=item.description;
+  fields.men.textContent=item.men;
+  fields.women.textContent=item.women;
+  fields.source.textContent=item.source;
+  backdrop.classList.add('open');
+  backdrop.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  closeButton.focus();
+ }
+ function closeDetails(){
+  backdrop.classList.remove('open');
+  backdrop.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if(lastFocused && typeof lastFocused.focus==='function') lastFocused.focus();
+ }
+ document.querySelectorAll('.event-trigger').forEach(card=>{
+  card.addEventListener('click',()=>openDetails(card.dataset.event,card));
+  card.addEventListener('keydown',event=>{
+   if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetails(card.dataset.event,card);}
+  });
+ });
+ closeButton.addEventListener('click',closeDetails);
+ backdrop.addEventListener('click',event=>{if(event.target===backdrop)closeDetails();});
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&backdrop.classList.contains('open'))closeDetails();});
+})();
+</script>
+
 </body></html>
