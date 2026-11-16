@@ -36,6 +36,8 @@ function base64url(value) {
 }
 function createServiceAssertion(serviceAccount) {
   const now = Math.floor(Date.now() / 1000);
+  // Vercel may preserve escaped \\n sequences from pasted JSON; normalize to PEM newlines.
+  const privateKey = String(serviceAccount.private_key || '').replace(/\\n/g, '\n');
   const header = base64url(JSON.stringify({alg: 'RS256', typ: 'JWT'}));
   const payload = base64url(JSON.stringify({
     iss: serviceAccount.client_email,
@@ -48,7 +50,7 @@ function createServiceAssertion(serviceAccount) {
   const signer = crypto.createSign('RSA-SHA256');
   signer.update(unsigned);
   signer.end();
-  return unsigned + '.' + base64url(signer.sign(serviceAccount.private_key));
+  return unsigned + '.' + base64url(signer.sign(privateKey));
 }
 
 async function getAccessToken(serviceAccount) {
@@ -139,8 +141,10 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ok: false, error: 'RSVP authentication configuration is invalid.'});
   }
 
+  let failureStage = 'google_authentication';
   try {
     const accessToken = await getAccessToken(serviceAccount);
+    failureStage = 'google_sheets_append';
     const range = encodeURIComponent("'RSVP Responses'!A:G");
     const endpoint =
       'https://sheets.googleapis.com/v4/spreadsheets/' +
@@ -178,7 +182,7 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({ok: true, message: 'RSVP saved.'});
   } catch (error) {
-    console.error('RSVP service error:', error && error.message ? error.message : error);
+    console.error('RSVP service failed at stage:', failureStage, 'error:', error && error.message ? error.message : error);
     return res.status(502).json({
       ok: false,
       error: 'The RSVP service is temporarily unavailable. Please try again.'
