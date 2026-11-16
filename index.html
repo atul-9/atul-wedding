@@ -109,6 +109,46 @@
 .event-detail-foot{text-align:center;font:italic 18px var(--serif);color:var(--wine);margin:22px 0 0}
 @media(max-width:600px){.event-detail-grid{grid-template-columns:1fr}.event-detail-modal{padding:26px 20px}.event-trigger:after{font-size:7px;letter-spacing:.1em}}
 
+/* Our Moments — photo and film gallery */
+.memory-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:0 auto 28px;max-width:1040px}
+.memory-filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.memory-filter{border:1px solid rgba(164,122,54,.5);background:rgba(255,252,243,.6);color:#765d3d;padding:11px 17px;font:700 9px var(--sans);letter-spacing:.13em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.memory-filter:hover,.memory-filter.is-active{background:var(--wine);color:#fff7e7;border-color:var(--wine)}
+.memory-filter:focus-visible,.memory-card:focus-visible,.memory-viewer-close:focus-visible{outline:2px solid var(--wine2);outline-offset:4px}
+.memory-count{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8b765f;margin:0}
+.memory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1040px;margin:0 auto}
+.memory-card{display:block;position:relative;width:100%;min-width:0;padding:0;text-align:left;border:1px solid rgba(164,122,54,.48);background:#fbf7eb;color:var(--ink);cursor:pointer;overflow:hidden;box-shadow:0 10px 28px rgba(69,35,23,.07);transition:transform .4s,box-shadow .4s,border-color .4s}
+.memory-card:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(69,35,23,.14);border-color:var(--gold)}
+.memory-card-media{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(145deg,#e5d5b4,#f8f0df 55%,#d8c193)}
+.memory-card-media img,.memory-card-media video{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.memory-card:hover .memory-card-media img,.memory-card:hover .memory-card-media video{transform:scale(1.04)}
+.memory-card-media.video{aspect-ratio:4/5}
+.memory-video-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:rgba(100,30,38,.9);border:1px solid #dfc77f;color:#fff6e3;font-size:17px;padding-left:3px;box-shadow:0 7px 20px #2d10134a}
+.memory-card-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px 17px}
+.memory-card-title{font:600 20px/1.15 var(--serif);color:var(--wine)}
+.memory-card-kind{flex:none;font:700 8px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:#957442}
+.memory-empty{max-width:780px;margin:0 auto 34px;padding:52px 30px;text-align:center;border:1px solid rgba(164,122,54,.55);outline:1px solid rgba(164,122,54,.2);outline-offset:6px;background:rgba(255,252,243,.55)}
+.memory-empty-orn{font:44px var(--serif);color:var(--gold);margin-bottom:12px}
+.memory-empty h3{font:500 clamp(32px,4vw,43px)/1.05 var(--serif);color:var(--wine);margin:12px 0}
+.memory-empty p{max-width:520px;margin:0 auto;font:17px/1.7 var(--serif);color:#806b57}
+.memory-empty-rule{margin-top:22px;color:var(--gold);letter-spacing:.3em}
+.gallery-keepsake{max-width:920px;margin:70px auto 0;display:grid;grid-template-columns:.9fr 1.1fr;gap:35px;align-items:center;padding:22px;background:rgba(255,252,243,.55);border:1px solid rgba(164,122,54,.5)}
+.gallery-keepsake-art{padding:8px;background:linear-gradient(135deg,#9d783c,#e1c987,#8e642c);box-shadow:0 12px 28px rgba(69,35,23,.12)}
+.gallery-keepsake-art img{display:block;width:100%;max-height:340px;object-fit:cover;object-position:center 45%}
+.gallery-keepsake-copy{padding:18px 22px}
+.gallery-keepsake-copy h3{font:500 clamp(30px,4vw,42px)/1 var(--serif);color:var(--wine);margin:13px 0}
+.gallery-keepsake-copy p{font:17px/1.7 var(--serif);color:#806b57}
+.memory-viewer{position:fixed;inset:0;z-index:110;background:rgba(17,8,9,.94);display:none;align-items:center;justify-content:center;padding:35px}
+.memory-viewer.open{display:flex}
+.memory-viewer-panel{position:relative;display:flex;flex-direction:column;align-items:center;gap:13px;max-width:min(1100px,94vw);max-height:92vh;width:100%}
+.memory-viewer-close{position:absolute;right:-16px;top:-18px;z-index:2;width:42px;height:42px;border:1px solid var(--gold2);border-radius:50%;background:var(--paper2);color:var(--wine);font-size:25px;cursor:pointer}
+.memory-viewer-content{display:flex;align-items:center;justify-content:center;width:100%;max-height:82vh}
+.memory-viewer-content img,.memory-viewer-content video{display:block;max-width:100%;max-height:82vh;width:auto;height:auto;object-fit:contain;border:1px solid rgba(210,181,109,.65);box-shadow:0 20px 70px #0008}
+.memory-viewer-caption{color:#f4e8d1;font:italic 20px var(--serif);text-align:center;margin:0}
+@media(max-width:800px){.memory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.gallery-keepsake{grid-template-columns:1fr;gap:18px}.gallery-keepsake-art{max-width:440px;margin:auto}.gallery-keepsake-copy{text-align:center}}
+@media(max-width:520px){.memory-toolbar{justify-content:center}.memory-count{width:100%;text-align:center}.memory-filters{justify-content:center}.memory-filter{padding:10px 12px;font-size:8px}.memory-grid{gap:10px}.memory-card-meta{align-items:flex-start;flex-direction:column;gap:5px;padding:12px}.memory-card-title{font-size:18px}.memory-empty{padding:40px 20px}.gallery-keepsake{padding:14px;margin-top:48px}.gallery-keepsake-copy{padding:14px 8px}.memory-viewer{padding:18px}.memory-viewer-close{right:-6px;top:-12px}}
+
+
 </style>
 </head>
 <body>
@@ -252,10 +292,38 @@
 
 <section class="gallery section" id="gallery">
  <div class="section-inner">
-  <div class="section-head"><div class="eyebrow">A glimpse of our celebration</div><div class="orn">✧ ❀ ✧</div><h2>From our invitation</h2><p>The artwork and monogram from the printed invitation, carried into our digital celebration.</p></div>
-  <div class="gallery-grid">
-    <div class="gallery-feature"><img src="assets/invitation-couple-art.jpg" alt="Wedding couple illustration from the printed invitation"></div>
-    <div class="gallery-note"><div><div class="flower">❀</div><h3>Our memories, soon</h3><p>We’ll add our personal photographs here. For now, this page uses the original artwork from our invitation—no stock couple photographs.</p><div class="flower">❧</div></div></div>
+  <div class="section-head">
+   <div class="eyebrow">A collection of our favourite moments</div>
+   <div class="orn">✧ ❀ ✧</div>
+   <h2>Our Moments</h2>
+   <p>Photographs and films of Atul &amp; Disha, gathered in one place.</p>
+  </div>
+
+  <div class="memory-toolbar" role="group" aria-label="Filter gallery">
+   <div class="memory-filters">
+    <button class="memory-filter is-active" type="button" data-gallery-filter="all" aria-pressed="true">All moments</button>
+    <button class="memory-filter" type="button" data-gallery-filter="photo" aria-pressed="false">Photographs</button>
+    <button class="memory-filter" type="button" data-gallery-filter="video" aria-pressed="false">Videos</button>
+   </div>
+   <p class="memory-count" id="memoryCount" aria-live="polite">Our gallery is being prepared</p>
+  </div>
+
+  <div class="memory-grid" id="memoryGrid" aria-label="Wedding photographs and videos" hidden></div>
+  <div class="memory-empty" id="memoryEmpty">
+   <div class="memory-empty-orn">✧</div>
+   <div class="eyebrow">A little more to come</div>
+   <h3>Your moments will live here.</h3>
+   <p>Our photographs and films will appear here as they are added. We’re looking forward to sharing these memories with you.</p>
+   <div class="memory-empty-rule">❧ &nbsp; ❀ &nbsp; ❧</div>
+  </div>
+
+  <div class="gallery-keepsake">
+   <div class="gallery-keepsake-art"><img src="assets/invitation-couple-art.jpg" alt="Original wedding artwork from Atul and Disha’s printed invitation" loading="lazy"></div>
+   <div class="gallery-keepsake-copy">
+    <div class="eyebrow">A keepsake from our invitation</div>
+    <h3>The celebration begins with a promise.</h3>
+    <p>The original artwork from our printed wedding invitation, now part of our digital celebration.</p>
+   </div>
   </div>
  </div>
 </section>
@@ -354,7 +422,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
  updateMotion();
 
  const revealTargets=document.querySelectorAll(
-   '.section-head,.story-panel,.family-grid,.family-monogram,.day,.venue-grid,.gallery-grid,.kwikpic-card,.rsvp-box,.footer-logo,.footer-names'
+   '.section-head,.story-panel,.family-grid,.family-monogram,.day,.venue-grid,.memory-toolbar,.memory-grid,.memory-empty,.gallery-keepsake,.kwikpic-card,.rsvp-box,.footer-logo,.footer-names'
  );
  revealTargets.forEach((el,i)=>{
    el.classList.add('v2-reveal');
@@ -514,5 +582,118 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&backdrop.classList.contains('open'))closeDetails();});
 })();
 </script>
+
+<script>
+(() => {
+  // Add real media files to assets/gallery/ and list them here.
+  // Photos: { type: 'photo', src: 'assets/gallery/photo-name.webp', title: 'A short caption' }
+  // Videos: { type: 'video', src: 'assets/gallery/film-name.mp4', poster: 'assets/gallery/film-cover.webp', title: 'A short caption' }
+  const GALLERY_ITEMS = [
+    // Your uploaded photographs and films will be added here.
+  ];
+
+  const grid = document.getElementById('memoryGrid');
+  const empty = document.getElementById('memoryEmpty');
+  const count = document.getElementById('memoryCount');
+  const filters = [...document.querySelectorAll('[data-gallery-filter]')];
+  const viewer = document.getElementById('memoryViewer');
+  const viewerContent = document.getElementById('memoryViewerContent');
+  const viewerCaption = document.getElementById('memoryViewerCaption');
+  const closeViewerButton = document.getElementById('memoryViewerClose');
+  let activeFilter = 'all';
+  let lastFocused = null;
+
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+
+  function visibleItems() {
+    return GALLERY_ITEMS.map((item, index) => ({...item, originalIndex:index}))
+      .filter(item => activeFilter === 'all' || item.type === activeFilter);
+  }
+
+  function renderGallery() {
+    const items = visibleItems();
+    grid.innerHTML = items.map(item => {
+      const title = escapeHTML(item.title || (item.type === 'video' ? 'Wedding film' : 'A favourite moment'));
+      const src = escapeHTML(item.src || '');
+      const poster = escapeHTML(item.poster || '');
+      const media = item.type === 'video'
+        ? (poster
+          ? '<img src="' + poster + '" alt="" loading="lazy">'
+          : '<span class="memory-video-mark" aria-hidden="true">▶</span>')
+        : '<img src="' + src + '" alt="' + escapeHTML(item.alt || item.title || 'Atul and Disha') + '" loading="lazy">';
+      return '<button class="memory-card" type="button" data-gallery-index="' + item.originalIndex + '" aria-label="Open ' + title + '">' +
+        '<span class="memory-card-media ' + (item.type === 'video' ? 'video' : '') + '">' + media +
+        (item.type === 'video' ? '<span class="memory-video-mark" aria-hidden="true">▶</span>' : '') + '</span>' +
+        '<span class="memory-card-meta"><span class="memory-card-title">' + title + '</span>' +
+        '<span class="memory-card-kind">' + (item.type === 'video' ? 'Film' : 'Photograph') + '</span></span></button>';
+    }).join('');
+
+    grid.hidden = items.length === 0;
+    empty.hidden = items.length !== 0;
+    count.textContent = items.length
+      ? items.length + (activeFilter === 'video' ? ' film(s)' : activeFilter === 'photo' ? ' photograph(s)' : ' moment(s)')
+      : (activeFilter === 'video' ? 'Films will appear here' : activeFilter === 'photo' ? 'Photographs will appear here' : 'Our gallery is being prepared');
+  }
+
+  filters.forEach(button => button.addEventListener('click', () => {
+    activeFilter = button.dataset.galleryFilter;
+    filters.forEach(filter => {
+      const selected = filter === button;
+      filter.classList.toggle('is-active', selected);
+      filter.setAttribute('aria-pressed', String(selected));
+    });
+    renderGallery();
+  }));
+
+  function openViewer(item, trigger) {
+    if (!item || !item.src) return;
+    lastFocused = trigger || document.activeElement;
+    const src = escapeHTML(item.src);
+    const poster = escapeHTML(item.poster || '');
+    if (item.type === 'video') {
+      viewerContent.innerHTML = '<video controls playsinline preload="metadata" ' + (poster ? 'poster="' + poster + '"' : '') + '><source src="' + src + '"></video>';
+    } else {
+      viewerContent.innerHTML = '<img src="' + src + '" alt="' + escapeHTML(item.alt || item.title || 'Atul and Disha') + '">';
+    }
+    viewerCaption.textContent = item.title || '';
+    viewer.classList.add('open');
+    viewer.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    closeViewerButton.focus();
+  }
+
+  function closeViewer() {
+    viewer.classList.remove('open');
+    viewer.setAttribute('aria-hidden','true');
+    viewerContent.innerHTML = '';
+    document.body.style.overflow = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  grid.addEventListener('click', event => {
+    const button = event.target.closest('[data-gallery-index]');
+    if (!button) return;
+    const item = GALLERY_ITEMS[Number(button.dataset.galleryIndex)];
+    openViewer(item, button);
+  });
+  closeViewerButton.addEventListener('click', closeViewer);
+  viewer.addEventListener('click', event => { if (event.target === viewer) closeViewer(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && viewer.classList.contains('open')) closeViewer();
+  });
+
+  renderGallery();
+})();
+</script>
+<div class="memory-viewer" id="memoryViewer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Gallery media viewer">
+ <div class="memory-viewer-panel">
+  <button class="memory-viewer-close" id="memoryViewerClose" type="button" aria-label="Close gallery viewer">×</button>
+  <div class="memory-viewer-content" id="memoryViewerContent"></div>
+  <p class="memory-viewer-caption" id="memoryViewerCaption"></p>
+ </div>
+</div>
+
 
 </body></html>
