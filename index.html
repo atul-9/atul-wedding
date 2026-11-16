@@ -721,7 +721,9 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
         .filter(file => file.type === 'file' && file.download_url && file.size > 0)
         .map(file => {
           const extension = file.name.split('.').pop().toLowerCase();
-          const src = file.download_url + '?v=' + file.sha;
+          // raw.githubusercontent.com returns an LFS pointer; media.githubusercontent.com serves the actual media bytes.
+          const mediaUrl = file.download_url.replace('https://raw.githubusercontent.com/','https://media.githubusercontent.com/media/');
+          const src = mediaUrl + '?v=' + file.sha;
           if (IMAGE_EXTENSIONS.has(extension)) return {type:'photo',extension,path:file.path,src,title:titleFromFilename(file.name)};
           if (VIDEO_EXTENSIONS.has(extension)) return {type:'video',extension,path:file.path,src,title:titleFromFilename(file.name)};
           return null;
