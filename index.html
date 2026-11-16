@@ -84,7 +84,7 @@
 .event-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .event-detail-grid section{background:#f1e8d4;border:1px solid rgba(164,122,54,.35);padding:18px}
 .event-detail-grid p{font:16px/1.65 var(--serif);color:#5b4435;margin:10px 0 0}
-.event-dress-source{font:11px/1.6 var(--sans);color:#89765e;border-top:1px solid var(--line);padding-top:16px;margin:20px 0 0}
+.event-dress-source{display:inline-flex;align-items:center;max-width:100%;font:700 9px/1.5 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#8a7048;background:#f3ead7;border:1px solid rgba(164,122,54,.32);padding:8px 12px;margin:0 0 14px}
 .event-detail-foot{text-align:center;font:italic 18px var(--serif);color:var(--wine);margin:22px 0 0}
 @media(max-width:600px){.event-detail-grid{grid-template-columns:1fr}.event-detail-modal{padding:26px 20px}.event-trigger:after{font-size:7px;letter-spacing:.1em}}
 
@@ -338,11 +338,11 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
   <div class="eyebrow" id="eventDetailsMeta">Wedding celebration</div>
   <h2 id="eventDetailsTitle">Function</h2>
   <p class="event-detail-description" id="eventDetailsDescription"></p>
+  <div class="event-dress-source" id="eventDressSource" aria-live="polite"></div>
   <div class="event-detail-grid">
    <section><div class="eyebrow">For men</div><p id="eventDressMen"></p></section>
    <section><div class="eyebrow">For women</div><p id="eventDressWomen"></p></section>
   </div>
-  <p class="event-dress-source" id="eventDressSource"></p>
   <p class="event-detail-foot">We look forward to celebrating with you. ✧</p>
  </div>
 </div>
@@ -357,7 +357,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'We begin the wedding festivities by seeking Lord Ganesha’s blessings, followed by the warmth and cheer of the Haldi Hat gathering. It is an auspicious, family-centred start to the celebrations.',
    men: 'A comfortable traditional kurta-pyjama in yellow, cream or other warm festive tones. Keep the look light and easy for a morning ceremony.',
    women: 'A bright yellow or turmeric-toned suit, saree or light lehenga with comfortable footwear and minimal floral or traditional accessories.',
-   source: 'Suggested dress code: the wardrobe planner does not list this 19 November function. Yellow and warm festive tones are recommendations for the Haldi setting.'
+   source: 'Suggested attire · Not specified in the wardrobe planner'
   },
   tel: {
    title: 'Tel',
@@ -365,7 +365,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'A traditional pre-wedding family ritual and an intimate moment in the celebrations. Guests are invited to join the family for this daytime gathering at the private residence.',
    men: 'A neat kurta-pyjama or simple Indian festive outfit in soft, daytime colours. Choose something comfortable for a family ceremony.',
    women: 'A graceful salwar suit, light saree or simple traditional outfit. Soft colours and understated jewellery work well for the daytime setting.',
-   source: 'Suggested dress code: the wardrobe planner does not specify a Tel outfit. These are simple daytime recommendations.'
+   source: 'Suggested attire · Not specified in the wardrobe planner'
   },
   basan: {
    title: 'Basan',
@@ -373,7 +373,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'A morning family ceremony as the wedding celebrations gather momentum. Join us for a traditional start to the day and time together with loved ones.',
    men: 'A Bandhej/Bandej-print kurta or a solid kurta paired with a Bandhej stole or safa. Keep the styling traditional and festive.',
    women: 'A Bandhej/Bandej saree, lehenga or suit, styled with traditional jewellery and comfortable footwear.',
-   source: 'Wardrobe planner: “Bandej” for the morning of 24 November.'
+   source: 'From your wardrobe planner · Bandej'
   },
   carnival: {
    title: 'Carnival',
@@ -381,7 +381,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'An afternoon filled with colour, cheerful company and a lively carnival mood. Come ready to enjoy the festivities and make memories with the family.',
    men: 'A pastel kurta with white or ivory trousers, or a light Indo-western set. Mint, powder blue, blush, lilac and soft peach complement the theme.',
    women: 'A pastel lehenga, sharara, saree or suit in blush pink, lavender, powder blue, mint or peach. Keep the look playful and light.',
-   source: 'Wardrobe planner: pastel shades for the Carnival on the afternoon of 24 November.'
+   source: 'From your wardrobe planner · Pastel shades'
   },
   nikasi: {
    title: 'Atul ki Nikasi',
@@ -389,7 +389,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'The evening celebration for Atul’s Nikasi, bringing family and friends together as the groom prepares for the wedding day. Expect a festive night with traditional spirit.',
    men: 'An Indo-western bandhgala, an embellished kurta with a jacket, or a traditional festive ensemble. A stole or safa can complete the look.',
    women: 'A traditional lehenga, saree or sharara, or a dressy Indo-western outfit. Rich jewel tones and festive accessories suit the evening.',
-   source: 'Wardrobe planner: “Indo-western / Traditional” for the night of 24 November.'
+   source: 'From your wardrobe planner · Indo-western / Traditional'
   },
   barat: {
    title: 'Atul ki Barat',
@@ -397,7 +397,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'Join the wedding procession as Atul sets out for the big celebration. Bring your energy, smiles and blessings as the wedding day begins in full swing.',
    men: 'Traditional Indian attire such as a sherwani, achkan or kurta with a waistcoat. A safa or stole can finish the celebratory look.',
    women: 'A festive saree, lehenga or traditional suit with occasion jewellery. Choose an outfit that is elegant and comfortable for the procession.',
-   source: 'Wardrobe planner: “Traditional” for the morning Barat on 25 November.'
+   source: 'From your wardrobe planner · Traditional'
   },
   phere: {
    title: 'Phere & Promises',
@@ -405,7 +405,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'The heart of the wedding day: the sacred pheras and the promises that mark the beginning of Atul and Disha’s married life. We would be honoured to have your blessings for this special ceremony.',
    men: 'Indian formalwear such as a refined kurta with a structured jacket, an achkan or a classic bandhgala in elegant, understated colours.',
    women: 'Indian formals such as a silk saree, elegant lehenga or a refined festive suit, paired with graceful traditional jewellery.',
-   source: 'Wardrobe planner: “Indian Formals” for the afternoon Phere on 25 November.'
+   source: 'From your wardrobe planner · Indian formals'
   },
   soiree: {
    title: 'Blessing Soirée',
@@ -413,7 +413,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
    description: 'An evening to receive your blessings, celebrate together and share a joyful meal. We look forward to welcoming you for the Aashirwad Samaroh and Preetibhoj.',
    men: 'Formal and glamorous: a sharp suit, tuxedo-inspired look or an elegant bandhgala. Polished shoes and refined accessories complete the evening style.',
    women: 'Formal and glamorous: an evening gown, statement saree or occasion lehenga with elevated jewellery and evening-ready styling.',
-   source: 'Wardrobe planner: “Formal & Glamorous” for the night Reception on 25 November.'
+   source: 'From your wardrobe planner · Formal & glamorous'
   }
  };
  const backdrop=document.getElementById('eventDetailsModal');
