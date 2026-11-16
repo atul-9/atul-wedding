@@ -596,6 +596,19 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
 })();
 </script>
 
+<div class="memory-viewer" id="memoryViewer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Gallery media viewer">
+ <div class="memory-viewer-panel">
+  <button class="memory-viewer-close" id="memoryViewerClose" type="button" aria-label="Close gallery viewer">×</button>
+  <div class="memory-viewer-content" id="memoryViewerContent"></div>
+  <p class="memory-viewer-caption" id="memoryViewerCaption"></p>
+  <div class="memory-viewer-nav" aria-label="Browse gallery">
+   <button id="memoryPrevious" type="button" disabled>← Previous</button>
+   <span class="memory-viewer-position" id="memoryViewerPosition">0 / 0</span>
+   <button id="memoryNext" type="button" disabled>Next →</button>
+  </div>
+ </div>
+</div>
+
 <script>
 (() => {
   // Same-origin Vercel endpoint; Google Drive credentials remain server-side.
@@ -813,18 +826,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
 })();
 </script>
 
-<div class="memory-viewer" id="memoryViewer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Gallery media viewer">
- <div class="memory-viewer-panel">
-  <button class="memory-viewer-close" id="memoryViewerClose" type="button" aria-label="Close gallery viewer">×</button>
-  <div class="memory-viewer-content" id="memoryViewerContent"></div>
-  <p class="memory-viewer-caption" id="memoryViewerCaption"></p>
-  <div class="memory-viewer-nav" aria-label="Browse gallery">
-   <button id="memoryPrevious" type="button" disabled>← Previous</button>
-   <span class="memory-viewer-position" id="memoryViewerPosition">0 / 0</span>
-   <button id="memoryNext" type="button" disabled>Next →</button>
-  </div>
- </div>
-</div>
+
 
 
 </body></html>
