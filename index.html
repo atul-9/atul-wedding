@@ -25,6 +25,27 @@
 .corner{position:absolute;color:var(--gold);font-size:38px;opacity:.7}.corner.a{top:36px;left:40px}.corner.b{right:40px;bottom:38px;transform:rotate(180deg)}
 .scroll-cue{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#8c785e;display:flex;flex-direction:column;align-items:center;gap:7px}.scroll-cue:after{content:"";height:25px;width:1px;background:var(--gold)}
 .section{padding:110px 26px;position:relative}.section-inner{max-width:1120px;margin:auto}.section-head{text-align:center;margin:0 auto 55px;max-width:760px}.section-head .orn{color:var(--gold);font-size:20px;letter-spacing:.5em}.section-head h2{font:500 clamp(45px,6vw,72px)/.95 var(--serif);color:var(--wine);margin:15px 0}.section-head p{font:italic 19px/1.55 var(--serif);color:#806b57;margin:12px 0}.story{background:var(--wine);color:#f8efd9;overflow:hidden}.story:before,.story:after{content:"❧";position:absolute;font:220px var(--serif);color:rgba(222,192,127,.12)}.story:before{top:-30px;left:-15px}.story:after{right:-15px;bottom:-80px;transform:rotate(180deg)}.story .section-head h2{color:#f8efd9}.story .section-head p{color:#ddc9a7}.story .eyebrow{color:#d8bb78}.story-panel{max-width:850px;margin:auto;text-align:center;border-top:1px solid rgba(222,192,127,.55);border-bottom:1px solid rgba(222,192,127,.55);padding:42px 8%;position:relative}.story-panel p{font:21px/1.9 var(--serif);color:#f2e4c7}.story-panel .big{font-size:30px;font-style:italic;color:#e3c783}
+.families{background:linear-gradient(180deg,#faf5e8 0%,#eee3cd 100%);overflow:hidden}
+.family-head{margin-bottom:30px}
+.family-monogram{display:block;width:92px;height:84px;object-fit:contain;margin:0 auto 17px;mix-blend-mode:multiply;filter:drop-shadow(0 7px 12px rgba(72,39,22,.10))}
+.family-head h2{margin-top:12px}
+.family-couple{font:500 clamp(38px,5vw,58px)/1 var(--serif);color:var(--wine);margin:18px 0 7px}
+.family-couple span{color:var(--gold);font-size:.76em;font-style:italic;padding:0 5px}
+.family-date{font:700 10px var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:13px}
+.family-invite-label{text-align:center;font:700 10px var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 auto 24px}
+.family-grid{max-width:980px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
+.family-card{position:relative;background:rgba(255,252,243,.83);border:1px solid var(--gold);padding:clamp(25px,4vw,42px) clamp(20px,3vw,34px);text-align:center;box-shadow:0 16px 38px rgba(66,39,18,.07)}
+.family-card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(164,122,54,.25);pointer-events:none}
+.family-side{font:700 9px var(--sans);letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:0 0 9px}
+.family-card h3{font:500 31px/1.05 var(--serif);color:var(--wine);margin:0 0 15px}
+.family-list{list-style:none;padding:0;margin:0}
+.family-list li{display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid rgba(164,122,54,.28)}
+.family-list li:last-child{border-bottom:0;padding-bottom:3px}
+.family-names{font:600 clamp(19px,2.2vw,23px)/1.2 var(--serif);color:var(--ink)}
+.family-role{font:italic 16px/1.35 var(--serif);color:#8b7048}
+.family-closing{max-width:760px;margin:34px auto 0;text-align:center;font:italic 19px/1.7 var(--serif);color:#78634f}
+@media(max-width:700px){.family-grid{grid-template-columns:1fr;gap:16px}.family-card{padding:30px 23px}.family-card h3{font-size:28px}.family-closing{font-size:18px;margin-top:25px}}
+
 .schedule{background:linear-gradient(180deg,#f7f0df,#efe3c8)}.timeline{max-width:900px;margin:auto;position:relative}.timeline:before{content:"";position:absolute;left:145px;top:10px;bottom:10px;width:1px;background:linear-gradient(transparent,var(--gold),var(--gold),transparent)}.day{display:grid;grid-template-columns:115px 1fr;gap:60px;margin:0 0 44px;position:relative}.day-date{text-align:right;color:var(--wine);padding-top:5px}.day-date b{display:block;font:600 38px/.9 var(--serif)}.day-date span{display:block;font-size:9px;letter-spacing:.17em;text-transform:uppercase;color:var(--gold);margin-top:9px}.day-events{display:grid;gap:12px}.event{background:rgba(255,252,243,.72);border:1px solid rgba(164,122,54,.36);padding:19px 23px 18px 28px;position:relative;box-shadow:0 8px 22px rgba(83,51,20,.04)}.event:before{content:"";position:absolute;left:-66px;top:26px;width:10px;height:10px;border-radius:50%;background:var(--wine);border:3px solid var(--paper);box-shadow:0 0 0 1px var(--gold)}.event-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.event h3{font:600 26px var(--serif);color:var(--wine);margin:0}.event time{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;white-space:nowrap}.event p{font-size:12px;color:#7e6b59;line-height:1.6;margin:8px 0 0}.event .tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:700}
 .venue{background:#fbf7eb}.venue-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:55px;align-items:center}.venue-seal{aspect-ratio:1;max-width:390px;margin:auto;border:1px solid var(--gold);outline:1px solid rgba(164,122,54,.4);outline-offset:8px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#fffaf0 45%,#f0e5c9);padding:40px}.venue-seal .inner{border:1px solid var(--line);border-radius:50%;width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column}.venue-seal .om{font-size:31px;color:var(--wine)}.venue-seal b{font:600 39px/.95 var(--serif);color:var(--wine);margin:10px 0}.venue-seal span{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}.venue-copy h3{font:500 46px/.95 var(--serif);color:var(--wine);margin:12px 0}.venue-copy p{font:17px/1.8 var(--serif);color:#76634f}.venue-address{border-left:2px solid var(--gold);padding:8px 0 8px 18px;margin:23px 0;color:var(--wine);font-weight:600;font-size:14px;line-height:1.8}
 .gallery{background:#e9dfc8}.gallery .section-head{margin-bottom:32px}.gallery-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:stretch}.gallery-feature{background:#f9f1df;padding:10px;border:1px solid var(--gold);box-shadow:0 20px 45px #4d32151c}.gallery-feature img{width:100%;height:440px;object-fit:cover;object-position:center 45%;display:block}.gallery-note{display:flex;align-items:center;justify-content:center;text-align:center;padding:35px;border:1px solid var(--gold);background:#f8f0de}.gallery-note div{max-width:300px}.gallery-note .flower{font-size:40px;color:var(--gold)}.gallery-note h3{font:500 34px var(--serif);color:var(--wine)}.gallery-note p{font:16px/1.7 var(--serif);color:#806c59}
@@ -138,6 +159,41 @@
     <p>Almost twelve years of shared memories, growing together, laughter and love have led us to this beautiful moment. As we begin a new chapter, we would be honoured to have you with us to share the joy, blessings and celebrations.</p>
     <p>With love,<br><span class="big">Atul &amp; Disha</span></p>
   </div>
+ </div>
+</section>
+
+<section class="families section" id="families">
+ <div class="section-inner">
+  <div class="section-head family-head">
+   <img class="family-monogram" src="assets/wedding-monogram.png" alt="Atul and Disha wedding monogram">
+   <div class="eyebrow">With the blessings of our elders</div>
+   <div class="orn">✧ ❀ ✧</div>
+   <h2>Two Families. One Celebration.</h2>
+   <p>Together, we warmly invite you to celebrate the wedding of</p>
+   <div class="family-couple">Atul <span>&amp;</span> Disha</div>
+   <div class="family-date">25 November 2026</div>
+  </div>
+  <div class="family-invite-label">Cordially invited by</div>
+  <div class="family-grid">
+   <article class="family-card">
+    <div class="family-side">The Groom’s Family</div>
+    <h3>With love and blessings</h3>
+    <ul class="family-list">
+     <li><span class="family-names">Suresh Kumar &amp; Asha Jain</span><span class="family-role">Tauji &amp; Taiji</span></li>
+     <li><span class="family-names">Dinesh Kumar &amp; Rekha Agrawal</span><span class="family-role">Papa &amp; Mummy</span></li>
+     <li><span class="family-names">CA Ekansh &amp; CA Garima</span><span class="family-role">Bhaiya &amp; Bhabhi</span></li>
+    </ul>
+   </article>
+   <article class="family-card">
+    <div class="family-side">The Bride’s Family</div>
+    <h3>With love and blessings</h3>
+    <ul class="family-list">
+     <li><span class="family-names">Narender &amp; Sulekha Agrawal</span><span class="family-role">Papa &amp; Mummy</span></li>
+     <li><span class="family-names">Praksha &amp; Nischal Agrawal</span><span class="family-role">Didi &amp; Jiju</span></li>
+    </ul>
+   </article>
+  </div>
+  <p class="family-closing">Your presence, blessings and good wishes will make this special occasion even more memorable for our families. We look forward to celebrating with you!</p>
  </div>
 </section>
 
@@ -298,7 +354,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async e=>{
  updateMotion();
 
  const revealTargets=document.querySelectorAll(
-   '.section-head,.story-panel,.day,.venue-grid,.gallery-grid,.kwikpic-card,.rsvp-box,.footer-logo,.footer-names'
+   '.section-head,.story-panel,.family-grid,.family-monogram,.day,.venue-grid,.gallery-grid,.kwikpic-card,.rsvp-box,.footer-logo,.footer-names'
  );
  revealTargets.forEach((el,i)=>{
    el.classList.add('v2-reveal');
