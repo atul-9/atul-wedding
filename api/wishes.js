@@ -85,22 +85,44 @@ async function ensureWishesTab(spreadsheetId, token) {
     return data.sheets.some(sheet => sheet.properties && sheet.properties.title === WISHES_TAB);
   };
 
-  if (await inspect()) return;
+  if (!(await inspect())) {
+    const createResponse = await googleRequest(baseUrl + ':batchUpdate', token, {
+      method: 'POST',
+      body: JSON.stringify({
+        requests: [{addSheet: {properties: {title: WISHES_TAB}}}]
+      })
+    });
 
-  const createResponse = await googleRequest(baseUrl + ':batchUpdate', token, {
-    method: 'POST',
-    body: JSON.stringify({
-      requests: [{addSheet: {properties: {title: WISHES_TAB}}}]
-    })
-  });
+    // If a simultaneous first submission created it, the second metadata check succeeds.
+    if (!createResponse.ok && !(await inspect())) {
+      console.error('Could not create Guest Wishes tab. Google status:', createResponse.status);
+      throw new Error('Could not create Guest Wishes tab.');
+    }
+  }
 
-  if (createResponse.ok) return;
+  // Add a header row only when the tab is empty; never overwrite a guest message.
+  const headerRange = encodeURIComponent("'Guest Wishes'!A1:C1");
+  const headerUrl = baseUrl + '/values/' + headerRange;
+  const headerRead = await googleRequest(headerUrl, token, {method: 'GET'});
+  const headerData = await headerRead.json().catch(() => ({}));
+  if (!headerRead.ok) {
+    console.error('Could not inspect Guest Wishes header. Google status:', headerRead.status);
+    throw new Error('Could not prepare Guest Wishes tab.');
+  }
 
-  // Another first-time submission may have created the tab concurrently.
-  if (await inspect()) return;
-
-  console.error('Could not create Guest Wishes tab. Google status:', createResponse.status);
-  throw new Error('Could not create Guest Wishes tab.');
+  if (!Array.isArray(headerData.values) || headerData.values.length === 0) {
+    const headerWrite = await googleRequest(headerUrl + '?valueInputOption=RAW', token, {
+      method: 'PUT',
+      body: JSON.stringify({
+        majorDimension: 'ROWS',
+        values: [['Submitted At', 'Guest Name', 'Wish']]
+      })
+    });
+    if (!headerWrite.ok) {
+      console.error('Could not initialize Guest Wishes header. Google status:', headerWrite.status);
+      throw new Error('Could not prepare Guest Wishes tab.');
+    }
+  }
 }
 
 module.exports = async function handler(req, res) {
