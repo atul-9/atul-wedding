@@ -364,7 +364,7 @@
       <div class="span2"><label for="note">A note for Atul &amp; Disha (optional)</label><textarea id="note" name="note" placeholder="Write your wishes..."></textarea></div>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0"><button class="btn" type="submit">Submit RSVP ↗</button>
     </form>
-    <p class="smallprint" id="rsvpStatus">Your response will be securely submitted and saved for the wedding team.</p>
+    <p class="smallprint" id="rsvpStatus" aria-live="polite" role="status">Your response will be securely submitted and saved for the wedding team.</p>
   </div>
  </div>
 </section>
@@ -392,27 +392,45 @@ document.getElementById('openInvite').addEventListener('click',()=>modal.classLi
 document.getElementById('closeInvite').addEventListener('click',()=>modal.classList.remove('open'));
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open')});
-// Google Sheets RSVP endpoint: paste your deployed Apps Script Web App URL below.
-const RSVP_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
-document.getElementById('rsvpForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const form=e.currentTarget, status=document.getElementById('rsvpStatus');
- const button=form.querySelector('button[type="submit"]');
- const payload=Object.fromEntries(new FormData(form).entries());
- if(payload.website){return;}
- if(!RSVP_SCRIPT_URL.startsWith('https://script.google.com/')){
-   status.textContent='RSVP is being configured. Please contact the family directly for now.'; return;
- }
- button.disabled=true; button.textContent='Submitting…'; status.textContent='Sending your RSVP…';
- try{
-   const body=new URLSearchParams({...payload,action:'submit'}).toString();
-   // Apps Script does not expose browser CORS headers; no-cors sends the form without a preflight.
-   await fetch(RSVP_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body});
-   status.textContent='Thank you! Your RSVP has been submitted. We look forward to celebrating with you.';
-   form.reset();
- }catch(err){status.textContent='We could not send your RSVP. Please try again or contact the family.';}
- finally{button.disabled=false;button.textContent='Submit RSVP ↗';}
-});
+// Submit via the same-origin Vercel API. Google credentials stay server-side.
+const rsvpForm = document.getElementById('rsvpForm');
+if (rsvpForm) {
+ rsvpForm.addEventListener('submit', async event => {
+   event.preventDefault();
+   const form = event.currentTarget;
+   const status = document.getElementById('rsvpStatus');
+   const button = form.querySelector('button[type="submit"]');
+   const payload = Object.fromEntries(new FormData(form).entries());
+
+   // Honeypot: silently ignore automated submissions.
+   if (String(payload.website || '').trim()) return;
+
+   button.disabled = true;
+   button.textContent = 'Submitting…';
+   status.textContent = 'Sending your RSVP…';
+
+   try {
+     const response = await fetch('/api/rsvp', {
+       method: 'POST',
+       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+       body: JSON.stringify(payload),
+       cache: 'no-store'
+     });
+     const result = await response.json().catch(() => ({}));
+     if (!response.ok || result.ok !== true) {
+       throw new Error(result.error || 'We could not save your RSVP. Please try again.');
+     }
+
+     status.textContent = 'Thank you! Your RSVP has been saved. We look forward to celebrating with you.';
+     form.reset();
+   } catch (error) {
+     status.textContent = error.message || 'We could not save your RSVP. Please try again or contact the family.';
+   } finally {
+     button.disabled = false;
+     button.textContent = 'Submit RSVP ↗';
+   }
+ });
+}
 </script>
 <script>
 
