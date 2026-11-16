@@ -31,10 +31,9 @@ function base64url(value) {
   return Buffer.from(value)
     .toString('base64')
     .replace(/=/g, '')
-    .replace(/\\+/g, '-')
-    .replace(/\\//g, '_');
+    .split('+').join('-')
+    .split('/').join('_');
 }
-
 function createServiceAssertion(serviceAccount) {
   const now = Math.floor(Date.now() / 1000);
   const header = base64url(JSON.stringify({alg: 'RS256', typ: 'JWT'}));
