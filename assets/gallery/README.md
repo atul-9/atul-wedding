@@ -1,47 +1,44 @@
-# Atul & Disha — Wedding Gallery Folder
+# Google Drive wedding gallery — feature/evol
 
-The website automatically reads supported media files placed directly inside `assets/gallery/`.
+This feature branch switches the gallery source to a dedicated Google Drive folder. The website lists media through a same-origin Vercel API endpoint; the Google API key stays server-side.
 
-## Supported formats
-- Photos: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`
-- Videos: `.mp4`, `.webm`
+## 1. Create the Drive folder
+1. Create a dedicated folder for the public wedding gallery.
+2. In **Share → General access**, select **Anyone with the link → Viewer**.
+3. Put only photographs and videos approved for public viewing directly inside this folder. Additions and deletions are detected automatically.
+4. Copy the folder ID from the URL: `https://drive.google.com/drive/folders/FOLDER_ID`.
 
-The file name becomes the caption. Use clear names such as `Atul-and-Disha-pre-wedding-01.webp`. Files appear in filename order. The README and unsupported file types are ignored.
+Google documents listing a publicly shared folder through Drive API v3 using an API key and the query `'FOLDER_ID' in parents and trashed = false`:
+https://developers.google.com/workspace/drive/api/guides/search-files
 
-## Git LFS is configured
-The repository's root `.gitattributes` tracks the supported gallery media formats using Git Large File Storage (LFS). The actual media files are stored as LFS objects; Git stores small pointer files.
+## 2. Enable Drive API and create a key
+1. Open https://console.cloud.google.com/.
+2. Create or select a Google Cloud project.
+3. Enable **Google Drive API**.
+4. Create an API key under **APIs & Services → Credentials**.
+5. Restrict the key to the **Google Drive API**. The key is used only by Vercel and is not exposed to browser JavaScript or committed to Git.
 
-### One-time setup on Windows
-1. Install [Git for Windows](https://git-scm.com/downloads).
-2. Install [Git LFS](https://git-lfs.com/).
-3. Open a new PowerShell or Git Bash window and run:
+## 3. Configure Vercel Preview variables
+In Vercel → project `atul_disha_wedding_site` → **Settings → Environment Variables**, add these variables for **Preview** only:
 
-```bash
-git lfs install
-git clone https://github.com/atul-9/atul-wedding.git
-cd atul-wedding
-```
+- `GOOGLE_DRIVE_FOLDER_ID` = the Drive folder ID
+- `GOOGLE_DRIVE_API_KEY` = the Google Cloud API key
 
-### Add or remove media
-Copy photos/videos directly into `assets/gallery/` in the cloned folder. Then run:
+Save and redeploy the `feature/evol` Preview deployment. Do not put the real key in `index.html`, GitHub, or a public environment variable.
 
-```bash
-git add .gitattributes
-git add assets/gallery/
-git commit -m "Add wedding gallery media"
-git push origin main
-```
+The Vercel endpoint is `/api/gallery`. It returns image/video metadata, supports pagination and uses a short CDN cache.
 
-To remove a photo/video, delete it from the folder and run the same add/commit/push steps. The gallery will reflect the folder after the push.
+## 4. Automatic updates and viewing
+The gallery loads when a visitor opens the site, offers a manual **Refresh gallery** button, and checks for changes every five minutes while open. New supported files and deletions are reflected automatically. Captions are generated from filenames.
 
-**Do not use GitHub's browser upload for large videos.** Use Git with Git LFS so the large file is uploaded to LFS storage. GitHub Free and Pro currently allow up to 2 GB per LFS file; GitHub Team allows 4 GB and Enterprise Cloud 5 GB. The included LFS storage and monthly download bandwidth are separate quotas. Check the GitHub LFS billing page before uploading a large library.
+Supported file types are Drive images (`image/*`) and videos (`video/*`). Put files directly in the selected folder (not nested subfolders). Media can be uploaded to Drive via the website or Drive desktop app; no Git commit is needed for media changes.
 
-## Automatic updates and playback
-The gallery reads the public GitHub folder when a visitor opens the page and checks for changes about every five minutes while the page remains open. Adding a supported image/video makes it appear automatically; deleting one removes it. Visitors can also use **Refresh gallery**.
+A click opens a Google Drive preview inside the website's full-screen viewer. Visitors can use Previous/Next, keyboard arrows, touch swipes and Escape/Close without leaving the wedding website.
 
-Gallery media is delivered from GitHub's media CDN so LFS-backed files are served as media, not pointer text. Photos and videos open inside the website. Visitors can use Previous/Next, the left/right keyboard arrows, or swipe on touch devices.
+## 5. 4K and privacy notes
+- Google Drive can store videos at any resolution, subject to available account storage, but Drive's in-browser video preview plays at a maximum of **1920 × 1080**. A 4K original is retained in Drive, but the embedded player will not stream it in 4K. For actual 4K streaming on the site, use a dedicated streaming/transcoding service.
+- An Anyone-with-the-link folder is public. Anyone who can access the wedding gallery can view its files. Do not put private or sensitive media here.
+- Drive account storage and API quotas still apply.
 
-## Media guidance and privacy
-Use original 4K files only where needed. Large 4K videos consume storage and download bandwidth each time they are viewed. For public streaming at scale, dedicated object/video hosting is usually more suitable than Git LFS.
-
-The website and this repository are public. Every supported image or video placed here is publicly accessible. Upload only media that Atul and Disha are comfortable sharing publicly; keep private or sensitive media elsewhere.
+## Verification before merge
+This work is isolated on `feature/evol`. Configure the Vercel Preview variables and test listing, thumbnails, image/video playback, and additions/deletions before merging. Nothing from this branch is merged into `main`.
