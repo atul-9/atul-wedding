@@ -60,6 +60,14 @@ Save the variables and redeploy the latest `feature/evol` Preview. Environment-v
 
 The `/api/rsvp` endpoint is append-only; it has no public read, edit, or delete operations. No admin dashboard is included. After Preview testing, configure the same two variables for **Production** before merging this branch.
 
+## Private guest wishes
+
+The page includes a private guestbook section. Guests can submit their name and a wish through the same-origin Vercel endpoint `/api/wishes`. Submissions are stored in the private `Guest Wishes` tab of the same Google spreadsheet used for RSVPs. The endpoint creates the tab with a header row on the first successful write if it does not already exist.
+
+The public website has no endpoint to read or display wishes. A guest can only submit a wish and receive a private confirmation on their own screen. The spreadsheet remains private and should only be accessible to the wedding organisers and the dedicated Google Service Account.
+
+No additional Vercel environment variables are required; the wishes endpoint reuses `GOOGLE_SHEET_ID` and `GOOGLE_SERVICE_ACCOUNT_JSON`. Preview testing should confirm the new `Guest Wishes` tab receives exactly one row with a timestamp, guest name and message.
+
 ## Security
 
 - No admin dashboard is included.
