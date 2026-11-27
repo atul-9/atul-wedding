@@ -25,6 +25,25 @@
 .corner{position:absolute;color:var(--gold);font-size:38px;opacity:.7}.corner.a{top:36px;left:40px}.corner.b{right:40px;bottom:38px;transform:rotate(180deg)}
 .scroll-cue{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#8c785e;display:flex;flex-direction:column;align-items:center;gap:7px}.scroll-cue:after{content:"";height:25px;width:1px;background:var(--gold)}
 .section{padding:110px 26px;position:relative}.section-inner{max-width:1120px;margin:auto}.section-head{text-align:center;margin:0 auto 55px;max-width:760px}.section-head .orn{color:var(--gold);font-size:20px;letter-spacing:.5em}.section-head h2{font:500 clamp(45px,6vw,72px)/.95 var(--serif);color:var(--wine);margin:15px 0}.section-head p{font:italic 19px/1.55 var(--serif);color:#806b57;margin:12px 0}.story{background:var(--wine);color:#f8efd9;overflow:hidden}.story:before,.story:after{content:"❧";position:absolute;font:220px var(--serif);color:rgba(222,192,127,.12)}.story:before{top:-30px;left:-15px}.story:after{right:-15px;bottom:-80px;transform:rotate(180deg)}.story .section-head h2{color:#f8efd9}.story .section-head p{color:#ddc9a7}.story .eyebrow{color:#d8bb78}.story-panel{max-width:850px;margin:auto;text-align:center;border-top:1px solid rgba(222,192,127,.55);border-bottom:1px solid rgba(222,192,127,.55);padding:42px 8%;position:relative}.story-panel p{font:21px/1.9 var(--serif);color:#f2e4c7}.story-panel .big{font-size:30px;font-style:italic;color:#e3c783}
+.highlight{background:linear-gradient(180deg,#f9f4e7 0%,#eee3cd 100%);overflow:hidden}
+.highlight-inner{max-width:1060px;margin:auto}
+.highlight-head{margin-bottom:38px}
+.highlight-head h2{margin:14px 0}
+.highlight-frame{position:relative;max-width:940px;margin:0 auto;padding:11px;background:linear-gradient(135deg,#9d783c,#e1c987,#8e642c,#d9c17f);box-shadow:0 25px 58px rgba(69,35,23,.16)}
+.highlight-frame:before{content:"";position:absolute;inset:5px;border:1px solid rgba(255,247,217,.82);pointer-events:none;z-index:2}
+.highlight-poster{position:relative;aspect-ratio:16/9;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,rgba(164,122,54,.25),transparent 42%),linear-gradient(135deg,#2e1118,#641e26 52%,#35141b);color:#f4edda;text-align:center}
+.highlight-poster:before,.highlight-poster:after{content:"";position:absolute;width:52%;height:150%;border:1px solid rgba(210,181,109,.23);border-radius:50%;transform:rotate(32deg);pointer-events:none}
+.highlight-poster:after{width:38%;transform:rotate(-32deg)}
+.highlight-poster-mark{position:relative;z-index:1;font:500 clamp(56px,9vw,100px)/.9 var(--serif);letter-spacing:-.06em;color:#e5cd91;text-shadow:0 5px 22px rgba(0,0,0,.2)}
+.highlight-poster-mark span{font-style:italic;font-size:.58em;color:#f4edda;padding:0 8px}
+.highlight-poster-rule{position:relative;z-index:1;width:64px;height:1px;background:var(--gold2);margin:19px 0 14px}
+.highlight-poster-label{position:relative;z-index:1;font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:#e8d6aa}
+.highlight-poster-note{position:relative;z-index:1;margin-top:28px;font:italic 18px var(--serif);color:#e8d6aa}
+.highlight-caption{text-align:center;margin:27px auto 0;max-width:650px}
+.highlight-caption p{font:italic 21px/1.55 var(--serif);color:#806b57;margin:0}
+.highlight-caption span{display:block;margin-top:13px;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:700}
+@media(max-width:600px){.highlight{padding:82px 18px}.highlight-frame{padding:7px}.highlight-poster{min-height:210px}.highlight-poster-note{font-size:15px;margin-top:20px}.highlight-caption p{font-size:19px}}
+
 .families{background:linear-gradient(180deg,#faf5e8 0%,#eee3cd 100%);overflow:hidden}
 .family-head{margin-bottom:30px}
 .family-monogram{display:block;width:92px;height:84px;object-fit:contain;margin:0 auto 17px;mix-blend-mode:multiply;filter:drop-shadow(0 7px 12px rgba(72,39,22,.10))}
@@ -190,7 +209,7 @@
   <nav class="nav">
     <a class="brand" href="#home" aria-label="Atul and Disha home"><img src="assets/wedding-monogram.png" alt="Atul and Disha wedding monogram"></a>
     <div class="links">
-      <a href="#story">Our story</a><a href="#schedule">The schedule</a><a href="#venue">Venue</a><a href="#gallery">Gallery</a><a href="#kwikpic">Photos</a><a class="nav-cta" href="#rsvp">RSVP</a><a href="#wishes">Wishes</a>
+      <a href="#story">Our story</a><a href="#highlight">Our film</a><a href="#schedule">The schedule</a><a href="#venue">Venue</a><a href="#gallery">Gallery</a><a href="#kwikpic">Photos</a><a class="nav-cta" href="#rsvp">RSVP</a><a href="#wishes">Wishes</a>
     </div>
   </nav>
 </header>
@@ -230,6 +249,29 @@
     <p class="big">From school days to forever.</p>
     <p>Almost twelve years of shared memories, growing together, laughter and love have led us to this beautiful moment. As we begin a new chapter, we would be honoured to have you with us to share the joy, blessings and celebrations.</p>
     <p>With love,<br><span class="big">Atul &amp; Disha</span></p>
+  </div>
+ </div>
+</section>
+
+<section class="highlight section" id="highlight">
+ <div class="highlight-inner">
+  <div class="section-head highlight-head">
+   <div class="eyebrow">A film of our forever</div>
+   <div class="orn">✧ ❀ ✧</div>
+   <h2>Our Wedding Highlight</h2>
+   <p>Every little moment brought us here.</p>
+  </div>
+  <div class="highlight-frame" aria-label="Wedding highlight video coming soon">
+   <div class="highlight-poster">
+    <div class="highlight-poster-mark">A<span>&amp;</span>D</div>
+    <div class="highlight-poster-rule"></div>
+    <div class="highlight-poster-label">Atul &amp; Disha · The Wedding Film</div>
+    <div class="highlight-poster-note">A beautiful story, told in motion</div>
+   </div>
+  </div>
+  <div class="highlight-caption">
+   <p>A little glimpse into our story, made with love.</p>
+   <span>25 November 2026 &nbsp; · &nbsp; With love, Atul &amp; Disha</span>
   </div>
  </div>
 </section>
