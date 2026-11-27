@@ -41,6 +41,11 @@
 .highlight-poster-rule{position:relative;z-index:1;width:64px;height:1px;background:var(--gold2);margin:19px 0 14px}
 .highlight-poster-label{position:relative;z-index:1;font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:#e8d6aa}
 .highlight-poster-note{position:relative;z-index:1;margin-top:28px;font:italic 18px var(--serif);color:#e8d6aa}
+.highlight-download-wrap{text-align:center;margin:30px auto 0}
+.highlight-download{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-width:230px;padding:16px 27px;background:var(--wine);border:1px solid var(--gold);color:#fff8e8;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:700;box-shadow:0 10px 24px rgba(69,35,23,.14);transition:background .2s,color .2s,transform .2s}
+.highlight-download:hover{background:transparent;color:var(--wine);transform:translateY(-2px)}
+.highlight-download svg{width:16px;height:16px;flex:none}
+.highlight-download-note{margin:10px 0 0;font-size:10px;letter-spacing:.08em;color:#8b765f}
 .highlight-caption{text-align:center;margin:27px auto 0;max-width:650px}
 .highlight-caption p{font:italic 21px/1.55 var(--serif);color:#806b57;margin:0}
 .highlight-caption span{display:block;margin-top:13px;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:700}
@@ -273,6 +278,13 @@
      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
      allowfullscreen></iframe>
    </div>
+  </div>
+  <div class="highlight-download-wrap">
+   <a class="highlight-download" href="/api/wedding-film-download" download aria-label="Download Atul and Disha's original wedding highlight film in 4K">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M4 20h16"></path></svg>
+    <span>Download in 4K</span>
+   </a>
+   <p class="highlight-download-note">Download the original wedding film · 4K quality</p>
   </div>
   <div class="highlight-caption">
    <p>Relive the moments, memories, and celebrations that made our wedding unforgettable.</p>
