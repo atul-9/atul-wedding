@@ -31,6 +31,8 @@
 .highlight-head h2{margin:14px 0}
 .highlight-frame{position:relative;max-width:940px;margin:0 auto;padding:11px;background:linear-gradient(135deg,#9d783c,#e1c987,#8e642c,#d9c17f);box-shadow:0 25px 58px rgba(69,35,23,.16)}
 .highlight-frame:before{content:"";position:absolute;inset:5px;border:1px solid rgba(255,247,217,.82);pointer-events:none;z-index:2}
+.highlight-video{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden;background:#2e1118;z-index:1}
+.highlight-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .highlight-poster{position:relative;aspect-ratio:16/9;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,rgba(164,122,54,.25),transparent 42%),linear-gradient(135deg,#2e1118,#641e26 52%,#35141b);color:#f4edda;text-align:center}
 .highlight-poster:before,.highlight-poster:after{content:"";position:absolute;width:52%;height:150%;border:1px solid rgba(210,181,109,.23);border-radius:50%;transform:rotate(32deg);pointer-events:none}
 .highlight-poster:after{width:38%;transform:rotate(-32deg)}
@@ -261,12 +263,15 @@
    <h2>Our Wedding Film</h2>
    <p>A beautiful collection of moments, memories, and celebrations from our wedding.</p>
   </div>
-  <div class="highlight-frame" aria-label="Wedding highlight film placeholder">
-   <div class="highlight-poster">
-    <div class="highlight-poster-mark">A<span>&amp;</span>D</div>
-    <div class="highlight-poster-rule"></div>
-    <div class="highlight-poster-label">Atul &amp; Disha · Wedding Highlight Film</div>
-    <div class="highlight-poster-note">Our wedding, in every unforgettable moment</div>
+  <div class="highlight-frame" aria-label="Atul and Disha wedding highlight film">
+   <div class="highlight-video">
+    <iframe
+     src="https://www.youtube-nocookie.com/embed/lg5YgjEHfe0"
+     title="Atul &amp; Disha · Wedding Highlight Film"
+     loading="lazy"
+     referrerpolicy="strict-origin-when-cross-origin"
+     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+     allowfullscreen></iframe>
    </div>
   </div>
   <div class="highlight-caption">
