@@ -73,3 +73,15 @@ No additional Vercel environment variables are required; the wishes endpoint reu
 - No admin dashboard is included.
 - Do not commit spreadsheet IDs, credentials, private admin tokens, or any other secrets.
 - Restrict access to the Google Sheet to the wedding organisers.
+
+
+## Original 4K wedding film download
+
+The **Download in 4K** button streams the original MP4 from Google Drive through the same-origin Vercel endpoint `/api/wedding-film-download`. The endpoint forwards browser byte-range requests and pipes the response directly to the browser, so the multi-gigabyte file is not buffered in server memory and guests are not sent to a Google Drive page.
+
+For the `feature/evol` Preview deployment, add these server-side environment variables in Vercel:
+
+- `GOOGLE_DRIVE_FILM_FILE_ID` = `1n6uF1rps3MoMsCt0HAdTJdATWnpCBGsF`
+- `GOOGLE_DRIVE_API_KEY` = the existing Drive API key already used by the gallery
+
+The MP4 in Google Drive must be shared as **Anyone with the link — Viewer** so the server can retrieve it using the API key. Keep the API key restricted to the Google Drive API. Do not put credentials in frontend code or commit them to GitHub. Redeploy the Preview after setting the variables, then test the download on desktop and mobile. Very large downloads still depend on the browser, network connection, Google Drive limits and Vercel's streaming/runtime limits.
