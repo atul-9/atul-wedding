@@ -85,3 +85,15 @@ For the `feature/evol` Preview deployment, add these server-side environment var
 - `GOOGLE_DRIVE_API_KEY` = the existing Drive API key already used by the gallery
 
 The MP4 in Google Drive must be shared as **Anyone with the link — Viewer** so the server can retrieve it using the API key. Keep the API key restricted to the Google Drive API. Do not put credentials in frontend code or commit them to GitHub. Redeploy the Preview after setting the variables, then test the download on desktop and mobile. Very large downloads still depend on the browser, network connection, Google Drive limits and Vercel's streaming/runtime limits.
+
+
+## Original pre-wedding film download
+
+The **Download Film** button streams the original MP4 from Google Drive through the same-origin Vercel endpoint `/api/prewedding-film-download`. The endpoint forwards browser byte-range requests and pipes the response directly to the browser, so the MP4 is not buffered in server memory and guests are not sent to a Google Drive page.
+
+For the `feature/evol` Preview deployment, add this server-side environment variable in Vercel:
+
+- `GOOGLE_DRIVE_PREWEDDING_FILE_ID` = `1tpO1Oae5GAbWcCI1MGOwbbZe39L5mfrF`
+- `GOOGLE_DRIVE_API_KEY` = the existing Drive API key already used by the gallery and wedding film download
+
+The MP4 in Google Drive must be shared as **Anyone with the link — Viewer** so the server can retrieve it using the API key. Keep the API key restricted to the Google Drive API. Do not put credentials in frontend code or commit them to GitHub. Redeploy the Preview after setting the variable, then test the download on desktop and mobile. Download performance depends on the browser, network connection, Google Drive limits and Vercel's streaming/runtime limits.
