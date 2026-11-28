@@ -51,6 +51,15 @@
 .highlight-caption span{display:block;margin-top:13px;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:700}
 @media(max-width:600px){.highlight{padding:82px 18px}.highlight-frame{padding:7px}.highlight-poster{min-height:210px}.highlight-poster-note{font-size:15px;margin-top:20px}.highlight-caption p{font-size:19px}}
 
+.prewedding{background:linear-gradient(180deg,#eee3cd 0%,#f9f4e7 100%)}
+.prewedding-actions{display:flex;justify-content:center;gap:13px;flex-wrap:wrap;margin:30px auto 0}
+.prewedding-action{font:inherit;cursor:not-allowed;opacity:.58;min-width:220px}
+.prewedding-action:disabled{transform:none;box-shadow:none}
+.prewedding-secondary{background:transparent;color:var(--wine);border-color:var(--gold)}
+.prewedding-secondary svg{width:16px;height:16px;flex:none}
+.prewedding-play{font-size:13px}
+.prewedding-note{margin-top:12px}
+@media(max-width:600px){.prewedding-actions{gap:10px}.prewedding-action{width:100%;min-width:0}}
 .families{background:linear-gradient(180deg,#faf5e8 0%,#eee3cd 100%);overflow:hidden}
 .family-head{margin-bottom:30px}
 .family-monogram{display:block;width:92px;height:84px;object-fit:contain;margin:0 auto 17px;mix-blend-mode:multiply;filter:drop-shadow(0 7px 12px rgba(72,39,22,.10))}
@@ -216,7 +225,7 @@
   <nav class="nav">
     <a class="brand" href="#home" aria-label="Atul and Disha home"><img src="assets/wedding-monogram.png" alt="Atul and Disha wedding monogram"></a>
     <div class="links">
-      <a href="#story">Our story</a><a href="#highlight">Our film</a><a href="#schedule">The schedule</a><a href="#venue">Venue</a><a href="#gallery">Gallery</a><a href="#kwikpic">Photos</a><a class="nav-cta" href="#rsvp">RSVP</a><a href="#wishes">Wishes</a>
+      <a href="#story">Our story</a><a href="#prewedding">Pre-wedding</a><a href="#highlight">Our film</a><a href="#schedule">The schedule</a><a href="#venue">Venue</a><a href="#gallery">Gallery</a><a href="#kwikpic">Photos</a><a class="nav-cta" href="#rsvp">RSVP</a><a href="#wishes">Wishes</a>
     </div>
   </nav>
 </header>
@@ -256,6 +265,40 @@
     <p class="big">From school days to forever.</p>
     <p>Almost twelve years of shared memories, growing together, laughter and love have led us to this beautiful moment. As we begin a new chapter, we would be honoured to have you with us to share the joy, blessings and celebrations.</p>
     <p>With love,<br><span class="big">Atul &amp; Disha</span></p>
+  </div>
+ </div>
+</section>
+
+<section class="highlight section prewedding" id="prewedding">
+ <div class="highlight-inner">
+  <div class="section-head highlight-head">
+   <div class="eyebrow">Before the wedding bells</div>
+   <div class="orn">✧ ❀ ✧</div>
+   <h2>Our Pre-Wedding Film</h2>
+   <p>A little glimpse into the moments, laughter, and memories that brought us to this beautiful beginning.</p>
+  </div>
+  <div class="highlight-frame" aria-label="Atul and Disha pre-wedding film preview">
+   <div class="highlight-poster" role="img" aria-label="Decorative Atul and Disha pre-wedding film title card">
+    <div class="highlight-poster-mark">Atul <span>&amp;</span> Disha</div>
+    <div class="highlight-poster-rule"></div>
+    <div class="highlight-poster-label">Pre-Wedding Film</div>
+    <div class="highlight-poster-note">Every story has a beautiful beginning</div>
+   </div>
+  </div>
+  <div class="prewedding-actions">
+   <button class="highlight-download prewedding-action" type="button" disabled aria-disabled="true">
+    <span class="prewedding-play" aria-hidden="true">▶</span>
+    <span>Watch on YouTube</span>
+   </button>
+   <button class="highlight-download prewedding-action prewedding-secondary" type="button" disabled aria-disabled="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M4 20h16"></path></svg>
+    <span>Download Film</span>
+   </button>
+  </div>
+  <p class="highlight-download-note prewedding-note">The film and download will be available here soon.</p>
+  <div class="highlight-caption">
+   <p>A celebration of the journey before the forever begins.</p>
+   <span>Atul &amp; Disha</span>
   </div>
  </div>
 </section>
